@@ -1,0 +1,507 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Neuroimaging in Python &mdash; NIPY Documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nipy.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.4.0.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="NIPY Documentation" href="../../index.html" />
+    <link rel="up" title="API" href="../index.html" />
+    <link rel="next" title="modalities.fmri.design_matrix" href="nipy.modalities.fmri.design_matrix.html" />
+    <link rel="prev" title="labs.viz_tools.test.test_slicers" href="nipy.labs.viz_tools.test.test_slicers.html" />
+  <meta name="keywords" content="nipy, neuroimaging, python, neuroscience, time
+				 series">
+
+  </head>
+  <body role="document">
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+ <a href="../../index.html">
+  <img src="../../_static/reggie2.png" alt="NIPY logo"  border="0" />
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="nipy.modalities.fmri.design_matrix.html" title="modalities.fmri.design_matrix"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="nipy.labs.viz_tools.test.test_slicers.html" title="labs.viz_tools.test.test_slicers"
+             accesskey="P">previous</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+  
+<h4> Site Navigation </h4>
+  <ul>
+    <li><a href="../../documentation.html">Documentation</a></li>
+    <li><a href="../../devel/index.html">Development</a></li>
+  </ul>
+
+<h4> NIPY Community </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://nipy.org/">Community Home</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/projects/">NIPY Projects</a></li>
+    <li><a class="reference external"
+	href="http://mail.scipy.org/mailman/listinfo/nipy-devel">Mailing List</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/license/index.html">License</a></li>
+  </ul>
+
+<h4> Github repo </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://github.com/nipy/nipy/">Nipy Github</a></li>
+  </ul>
+
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">modalities.fmri.design</a><ul>
+<li><a class="reference internal" href="#module-nipy.modalities.fmri.design">Module: <code class="docutils literal"><span class="pre">modalities.fmri.design</span></code></a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="nipy.labs.viz_tools.test.test_slicers.html"
+                        title="previous chapter">labs.viz_tools.test.test_slicers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="nipy.modalities.fmri.design_matrix.html"
+                        title="next chapter">modalities.fmri.design_matrix</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/api/generated/nipy.modalities.fmri.design.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+
+<div id="searchbox-ml" style="display: none">
+  <h3>Search mailing list archive</h3>
+  <script type="text/javascript">
+    function mlsearch(curobj)
+    {
+    curobj.q.value="site:http://mail.scipy.org/pipermail/nipy-devel/ "+curobj.userquery.value
+    }
+  </script>
+  <form action="http://www.google.com/search" method="get" onSubmit="mlsearch(this)">
+    <input name="userquery" size="13" type="text" /> <input type="submit" value="Go" />
+    <input name="q" type="hidden" />
+  </form>
+</div>
+  
+<div id="searchbox-site" style="display: none">
+  <h3>Search this site</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="13" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox-ml').show(0);</script>
+<script type="text/javascript">$('#searchbox-site').show(0);</script>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="modalities-fmri-design">
+<h1>modalities.fmri.design<a class="headerlink" href="#modalities-fmri-design" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-nipy.modalities.fmri.design">
+<span id="module-modalities-fmri-design"></span><h2>Module: <code class="xref py py-mod docutils literal"><span class="pre">modalities.fmri.design</span></code><a class="headerlink" href="#module-nipy.modalities.fmri.design" title="Permalink to this headline">¶</a></h2>
+<p>Convenience functions for specifying a design in the GLM</p>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="nipy.modalities.fmri.design.block_design">
+<code class="descclassname">nipy.modalities.fmri.design.</code><code class="descname">block_design</code><span class="sig-paren">(</span><em>block_spec</em>, <em>t</em>, <em>order=2</em>, <em>hrfs=(glover</em>, <em>)</em>, <em>convolution_padding=5.0</em>, <em>convolution_dt=0.02</em>, <em>hrf_interval=(0.0</em>, <em>30.0)</em>, <em>level_contrasts=False</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.modalities.fmri.design.block_design" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a design matrix from specification of blocks <cite>block_spec</cite></p>
+<p>Create design matrix for linear model from a block specification
+<cite>block_spec</cite>,  evaluating design rows at a sequence of time values <cite>t</cite>.
+Each column in the design matrix will be convolved with each HRF in <cite>hrfs</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>block_spec</strong> : np.recarray</p>
+<blockquote>
+<div><p>A recarray having at least a field named &#8216;start&#8217; and a field named &#8216;end&#8217;
+signifying the block time, and all other fields will be treated as
+factors in an ANOVA-type model.</p>
+</div></blockquote>
+<p><strong>t</strong> : np.ndarray</p>
+<blockquote>
+<div><p>An array of np.float values at which to evaluate the design. Common
+examples would be the acquisition times of an fMRI image.</p>
+</div></blockquote>
+<p><strong>order</strong> : int, optional</p>
+<blockquote>
+<div><p>The highest order interaction to be considered in constructing the
+contrast matrices.</p>
+</div></blockquote>
+<p><strong>hrfs</strong> : sequence, optional</p>
+<blockquote>
+<div><p>A sequence of (symbolic) HRFs that will be convolved with each block.
+Default is <code class="docutils literal"><span class="pre">(glover,)</span></code>.</p>
+</div></blockquote>
+<p><strong>convolution_padding</strong> : float, optional</p>
+<blockquote>
+<div><p>A padding for the convolution with the HRF. The intervals
+used for the convolution are the smallest &#8216;start&#8217; minus this
+padding to the largest &#8216;end&#8217; plus this padding.</p>
+</div></blockquote>
+<p><strong>convolution_dt</strong> : float, optional</p>
+<blockquote>
+<div><p>Time step for high-resolution time course for use in convolving the
+blocks with each HRF.</p>
+</div></blockquote>
+<p><strong>hrf_interval: length 2 sequence of floats, optional</strong> :</p>
+<blockquote>
+<div><p>Interval over which the HRF is assumed supported, used in the
+convolution.</p>
+</div></blockquote>
+<p><strong>level_contrasts</strong> : bool, optional</p>
+<blockquote>
+<div><p>If true, generate contrasts for each individual level
+of each factor.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>X</strong> : np.ndarray</p>
+<blockquote>
+<div><p>The design matrix with X.shape[0] == t.shape[0]. The number of
+columns will depend on the other fields of block_spec.</p>
+</div></blockquote>
+<p><strong>contrasts</strong> : dict</p>
+<blockquote class="last">
+<div><p>Dictionary of contrasts that is expected to be of interest from
+the block specification. For each interaction / effect up to a
+given order will be returned. Also, a contrast is generated for
+each interaction / effect for each HRF specified in hrfs.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.modalities.fmri.design.event_design">
+<code class="descclassname">nipy.modalities.fmri.design.</code><code class="descname">event_design</code><span class="sig-paren">(</span><em>event_spec</em>, <em>t</em>, <em>order=2</em>, <em>hrfs=(glover</em>, <em>)</em>, <em>level_contrasts=False</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.modalities.fmri.design.event_design" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create design matrix from event specification <cite>event_spec</cite></p>
+<p>Create a design matrix for linear model based on an event specification
+<cite>event_spec</cite>, evaluating the design rows at a sequence of time values <cite>t</cite>.
+Each column in the design matrix will be convolved with each HRF in <cite>hrfs</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>event_spec</strong> : np.recarray</p>
+<blockquote>
+<div><p>A recarray having at least a field named &#8216;time&#8217; signifying the event
+time, and all other fields will be treated as factors in an ANOVA-type
+model.</p>
+</div></blockquote>
+<p><strong>t</strong> : np.ndarray</p>
+<blockquote>
+<div><p>An array of np.float values at which to evaluate the design. Common
+examples would be the acquisition times of an fMRI image.</p>
+</div></blockquote>
+<p><strong>order</strong> : int, optional</p>
+<blockquote>
+<div><p>The highest order interaction to be considered in constructing
+the contrast matrices.</p>
+</div></blockquote>
+<p><strong>hrfs</strong> : sequence, optional</p>
+<blockquote>
+<div><p>A sequence of (symbolic) HRFs that will be convolved with each event.
+Default is <code class="docutils literal"><span class="pre">(glover,)</span></code>.</p>
+</div></blockquote>
+<p><strong>level_contrasts</strong> : bool, optional</p>
+<blockquote>
+<div><p>If True, generate contrasts for each individual level
+of each factor.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>X</strong> : np.ndarray</p>
+<blockquote>
+<div><p>The design matrix with <code class="docutils literal"><span class="pre">X.shape[0]</span> <span class="pre">==</span> <span class="pre">t.shape[0]</span></code>. The number of
+columns will depend on the other fields of <cite>event_spec</cite>.</p>
+</div></blockquote>
+<p><strong>contrasts</strong> : dict</p>
+<blockquote class="last">
+<div><p>Dictionary of contrasts that is expected to be of interest from the event
+specification. Each interaction / effect up to a given order will be
+returned. Also, a contrast is generated for each interaction / effect for
+each HRF specified in hrfs.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.modalities.fmri.design.fourier_basis">
+<code class="descclassname">nipy.modalities.fmri.design.</code><code class="descname">fourier_basis</code><span class="sig-paren">(</span><em>t</em>, <em>freq</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.modalities.fmri.design.fourier_basis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a design matrix with columns given by the Fourier
+basis with a given set of frequencies.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>t</strong> : np.ndarray</p>
+<blockquote>
+<div><p>An array of np.float values at which to evaluate
+the design. Common examples would be the acquisition
+times of an fMRI image.</p>
+</div></blockquote>
+<p><strong>freq</strong> : sequence of float</p>
+<blockquote>
+<div><p>Frequencies for the terms in the Fourier basis.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>X</strong> : np.ndarray</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">101</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">drift</span> <span class="o">=</span> <span class="n">fourier_basis</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">drift</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(101, 6)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.modalities.fmri.design.natural_spline">
+<code class="descclassname">nipy.modalities.fmri.design.</code><code class="descname">natural_spline</code><span class="sig-paren">(</span><em>tvals</em>, <em>knots=None</em>, <em>order=3</em>, <em>intercept=True</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.modalities.fmri.design.natural_spline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a design matrix with columns given by a natural spline of a given
+order and a specified set of knots.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>tvals</strong> : np.array</p>
+<blockquote>
+<div><p>Time values</p>
+</div></blockquote>
+<p><strong>knots</strong> : None or sequence, optional</p>
+<blockquote>
+<div><p>Sequence of float.  Default None (same as empty list)</p>
+</div></blockquote>
+<p><strong>order</strong> : int, optional</p>
+<blockquote>
+<div><p>Order of the spline. Defaults to a cubic (==3)</p>
+</div></blockquote>
+<p><strong>intercept</strong> : bool, optional</p>
+<blockquote>
+<div><p>If True, include a constant function in the natural
+spline. Default is False</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>X</strong> : np.ndarray</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">101</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">drift</span> <span class="o">=</span> <span class="n">natural_spline</span><span class="p">(</span><span class="n">tvals</span><span class="p">,</span> <span class="n">knots</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">drift</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(101, 8)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.modalities.fmri.design.stack2designs">
+<code class="descclassname">nipy.modalities.fmri.design.</code><code class="descname">stack2designs</code><span class="sig-paren">(</span><em>old_X</em>, <em>new_X</em>, <em>old_contrasts={}</em>, <em>new_contrasts={}</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.modalities.fmri.design.stack2designs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add some columns to a design matrix that has contrasts matrices
+already specified, adding some possibly new contrasts as well.</p>
+<p>This basically performs an np.hstack of old_X, new_X
+and makes sure the contrast matrices are dealt with accordingly.</p>
+<p>If two contrasts have the same name, an exception is raised.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>old_X</strong> : np.ndarray</p>
+<blockquote>
+<div><p>A design matrix</p>
+</div></blockquote>
+<p><strong>new_X</strong> : np.ndarray</p>
+<blockquote>
+<div><p>A second design matrix to be stacked with old_X</p>
+</div></blockquote>
+<p><strong>old_contrast</strong> : dict</p>
+<blockquote>
+<div><p>Dictionary of contrasts in the old_X column space</p>
+</div></blockquote>
+<p><strong>new_contrasts</strong> : dict</p>
+<blockquote>
+<div><p>Dictionary of contrasts in the new_X column space</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>X</strong> : np.ndarray</p>
+<blockquote>
+<div><p>A new design matrix:  np.hstack([old_X, new_X])</p>
+</div></blockquote>
+<p><strong>contrasts</strong> : dict</p>
+<blockquote class="last">
+<div><p>The new contrast matrices reflecting changes to the columns.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.modalities.fmri.design.stack_contrasts">
+<code class="descclassname">nipy.modalities.fmri.design.</code><code class="descname">stack_contrasts</code><span class="sig-paren">(</span><em>contrasts</em>, <em>name</em>, <em>keys</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.modalities.fmri.design.stack_contrasts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new F-contrast matrix called &#8216;name&#8217;
+based on a sequence of keys. The contrast
+is added to contrasts, in-place.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>contrasts</strong> : dict</p>
+<blockquote>
+<div><p>Dictionary of contrast matrices</p>
+</div></blockquote>
+<p><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Name of new contrast. Should not already be a key of contrasts.</p>
+</div></blockquote>
+<p><strong>keys</strong> : sequence of str</p>
+<blockquote>
+<div><p>Keys of contrasts that are to be stacked.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>None</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.modalities.fmri.design.stack_designs">
+<code class="descclassname">nipy.modalities.fmri.design.</code><code class="descname">stack_designs</code><span class="sig-paren">(</span><em>*pairs</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.modalities.fmri.design.stack_designs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stack a sequence of design / contrast dictionary
+pairs. Uses multiple calls to stack2designs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pairs</strong> : sequence filled with (np.ndarray, dict) or np.ndarray</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>X</strong> : np.ndarray</p>
+<blockquote>
+<div><p>new design matrix:  np.hstack([old_X, new_X])</p>
+</div></blockquote>
+<p><strong>contrasts</strong> : dict</p>
+<blockquote class="last">
+<div><p>The new contrast matrices reflecting changes to the columns.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="nipy.modalities.fmri.design_matrix.html" title="modalities.fmri.design_matrix"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="nipy.labs.viz_tools.test.test_slicers.html" title="labs.viz_tools.test.test_slicers"
+             >previous</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2005-2013, Neuroimaging in Python team.
+      Last updated on May 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

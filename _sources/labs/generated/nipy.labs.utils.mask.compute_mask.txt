@@ -1,0 +1,6 @@
+nipy.labs.utils.mask.compute_mask
+=================================
+
+.. currentmodule:: nipy.labs.utils.mask
+
+.. autofunction:: compute_mask

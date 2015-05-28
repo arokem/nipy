@@ -1,0 +1,2106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Neuroimaging in Python &mdash; NIPY Documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nipy.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.4.0.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="NIPY Documentation" href="../../index.html" />
+    <link rel="up" title="API" href="../index.html" />
+    <link rel="prev" title="API" href="../index.html" />
+  <meta name="keywords" content="nipy, neuroimaging, python, neuroscience, time
+				 series">
+
+  </head>
+  <body role="document">
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+ <a href="../../index.html">
+  <img src="../../_static/reggie2.png" alt="NIPY logo"  border="0" />
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="API"
+             accesskey="P">previous</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+  
+<h4> Site Navigation </h4>
+  <ul>
+    <li><a href="../../documentation.html">Documentation</a></li>
+    <li><a href="../../devel/index.html">Development</a></li>
+  </ul>
+
+<h4> NIPY Community </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://nipy.org/">Community Home</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/projects/">NIPY Projects</a></li>
+    <li><a class="reference external"
+	href="http://mail.scipy.org/mailman/listinfo/nipy-devel">Mailing List</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/license/index.html">License</a></li>
+  </ul>
+
+<h4> Github repo </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://github.com/nipy/nipy/">Nipy Github</a></li>
+  </ul>
+
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">algorithms.clustering.bgmm</a><ul>
+<li><a class="reference internal" href="#module-algorithms-clustering-bgmm">Module: <code class="docutils literal"><span class="pre">algorithms.clustering.bgmm</span></code></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#bgmm"><code class="docutils literal"><span class="pre">BGMM</span></code></a></li>
+<li><a class="reference internal" href="#vbgmm"><code class="docutils literal"><span class="pre">VBGMM</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">API</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/api/generated/nipy.algorithms.clustering.bgmm.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+
+<div id="searchbox-ml" style="display: none">
+  <h3>Search mailing list archive</h3>
+  <script type="text/javascript">
+    function mlsearch(curobj)
+    {
+    curobj.q.value="site:http://mail.scipy.org/pipermail/nipy-devel/ "+curobj.userquery.value
+    }
+  </script>
+  <form action="http://www.google.com/search" method="get" onSubmit="mlsearch(this)">
+    <input name="userquery" size="13" type="text" /> <input type="submit" value="Go" />
+    <input name="q" type="hidden" />
+  </form>
+</div>
+  
+<div id="searchbox-site" style="display: none">
+  <h3>Search this site</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="13" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox-ml').show(0);</script>
+<script type="text/javascript">$('#searchbox-site').show(0);</script>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="algorithms-clustering-bgmm">
+<h1>algorithms.clustering.bgmm<a class="headerlink" href="#algorithms-clustering-bgmm" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-algorithms-clustering-bgmm">
+<h2>Module: <code class="xref py py-mod docutils literal"><span class="pre">algorithms.clustering.bgmm</span></code><a class="headerlink" href="#module-algorithms-clustering-bgmm" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <code class="docutils literal"><span class="pre">nipy.algorithms.clustering.bgmm</span></code>:</p>
+<p class="graphviz">
+digraph inheritance664ed21912 {
+rankdir=LR;
+size=&quot;8.0, 12.0&quot;;
+  &quot;clustering.bgmm.BGMM&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;#nipy.algorithms.clustering.bgmm.BGMM&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,tooltip=&quot;This class implements Bayesian GMMs&quot;,height=0.25,shape=box,fontsize=10];
+  &quot;clustering.gmm.GMM&quot; -&gt; &quot;clustering.bgmm.BGMM&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
+  &quot;clustering.bgmm.VBGMM&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;#nipy.algorithms.clustering.bgmm.VBGMM&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,tooltip=&quot;Subclass of Bayesian GMMs (BGMM)&quot;,height=0.25,shape=box,fontsize=10];
+  &quot;clustering.bgmm.BGMM&quot; -&gt; &quot;clustering.bgmm.VBGMM&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
+  &quot;clustering.gmm.GMM&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;nipy.algorithms.clustering.gmm.html#nipy.algorithms.clustering.gmm.GMM&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,tooltip=&quot;Standard GMM.&quot;,height=0.25,shape=box,fontsize=10];
+}
+</p>
+<span class="target" id="module-nipy.algorithms.clustering.bgmm"></span><p>Bayesian Gaussian Mixture Model Classes:
+contains the basic fields and methods of Bayesian GMMs
+the high level functions are/should be binded in C</p>
+<p>The base class BGMM relies on an implementation that perfoms Gibbs sampling</p>
+<p>A derived class VBGMM uses Variational Bayes inference instead</p>
+<p>A third class is introduces to take advnatge of the old C-bindings,
+but it is limited to diagonal covariance models</p>
+<p>Author : Bertrand Thirion, 2008-2011</p>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bgmm">
+<h3><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM" title="nipy.algorithms.clustering.bgmm.BGMM"><code class="xref py py-class docutils literal"><span class="pre">BGMM</span></code></a><a class="headerlink" href="#bgmm" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM">
+<em class="property">class </em><code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">BGMM</code><span class="sig-paren">(</span><em>k=1</em>, <em>dim=1</em>, <em>means=None</em>, <em>precisions=None</em>, <em>weights=None</em>, <em>shrinkage=None</em>, <em>dof=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nipy.algorithms.clustering.gmm.html#nipy.algorithms.clustering.gmm.GMM" title="nipy.algorithms.clustering.gmm.GMM"><code class="xref py py-class docutils literal"><span class="pre">nipy.algorithms.clustering.gmm.GMM</span></code></a></p>
+<p>This class implements Bayesian GMMs</p>
+<p>this class contains the follwing fields
+k: int,</p>
+<blockquote>
+<div>the number of components in the mixture</div></blockquote>
+<dl class="docutils">
+<dt>dim: int,</dt>
+<dd>the dimension of the data</dd>
+<dt>means: array of shape (k, dim)</dt>
+<dd>all the means of the components</dd>
+<dt>precisions: array of shape (k, dim, dim)</dt>
+<dd>the precisions of the componenets</dd>
+<dt>weights: array of shape (k):</dt>
+<dd>weights of the mixture</dd>
+<dt>shrinkage: array of shape (k):</dt>
+<dd>scaling factor of the posterior precisions on the mean</dd>
+<dt>dof: array of shape (k)</dt>
+<dd>the degrees of freedom of the components</dd>
+<dt>prior_means: array of shape (k, dim):</dt>
+<dd>the prior on the components means</dd>
+<dt>prior_scale: array of shape (k, dim):</dt>
+<dd>the prior on the components precisions</dd>
+<dt>prior_dof: array of shape (k):</dt>
+<dd>the prior on the dof (should be at least equal to dim)</dd>
+<dt>prior_shrinkage: array of shape (k):</dt>
+<dd>scaling factor of the prior precisions on the mean</dd>
+<dt>prior_weights: array of shape (k)</dt>
+<dd>the prior on the components weights</dd>
+<dt>shrinkage: array of shape (k):</dt>
+<dd>scaling factor of the posterior precisions on the mean</dd>
+</dl>
+<p>dof : array of shape (k): the posterior dofs</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.bayes_factor" title="nipy.algorithms.clustering.bgmm.BGMM.bayes_factor"><code class="xref py py-obj docutils literal"><span class="pre">bayes_factor</span></code></a>(x,&nbsp;z[,&nbsp;nperm,&nbsp;verbose])</td>
+<td>Evaluate the Bayes Factor of the current model using Chib&#8217;s method</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.check" title="nipy.algorithms.clustering.bgmm.BGMM.check"><code class="xref py py-obj docutils literal"><span class="pre">check</span></code></a>()</td>
+<td>Checking the shape of sifferent matrices involved in the model</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.conditional_posterior_proba" title="nipy.algorithms.clustering.bgmm.BGMM.conditional_posterior_proba"><code class="xref py py-obj docutils literal"><span class="pre">conditional_posterior_proba</span></code></a>(x,&nbsp;z[,&nbsp;perm])</td>
+<td>Compute the probability of the current parameters of self</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.evidence" title="nipy.algorithms.clustering.bgmm.BGMM.evidence"><code class="xref py py-obj docutils literal"><span class="pre">evidence</span></code></a>(x,&nbsp;z[,&nbsp;nperm,&nbsp;verbose])</td>
+<td>See bayes_factor(self, x, z, nperm=0, verbose=0)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.guess_priors" title="nipy.algorithms.clustering.bgmm.BGMM.guess_priors"><code class="xref py py-obj docutils literal"><span class="pre">guess_priors</span></code></a>(x[,&nbsp;nocheck])</td>
+<td>Set the priors in order of having them weakly uninformative</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.initialize" title="nipy.algorithms.clustering.bgmm.BGMM.initialize"><code class="xref py py-obj docutils literal"><span class="pre">initialize</span></code></a>(x)</td>
+<td>initialize z using a k-means algorithm, then upate the parameters</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.pop" title="nipy.algorithms.clustering.bgmm.BGMM.pop"><code class="xref py py-obj docutils literal"><span class="pre">pop</span></code></a>(z)</td>
+<td>compute the population, i.e. the statistics of allocation</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.probability_under_prior" title="nipy.algorithms.clustering.bgmm.BGMM.probability_under_prior"><code class="xref py py-obj docutils literal"><span class="pre">probability_under_prior</span></code></a>()</td>
+<td>Compute the probability of the current parameters of self</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.sample" title="nipy.algorithms.clustering.bgmm.BGMM.sample"><code class="xref py py-obj docutils literal"><span class="pre">sample</span></code></a>(x[,&nbsp;niter,&nbsp;mem,&nbsp;verbose])</td>
+<td>sample the indicator and parameters</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.sample_and_average" title="nipy.algorithms.clustering.bgmm.BGMM.sample_and_average"><code class="xref py py-obj docutils literal"><span class="pre">sample_and_average</span></code></a>(x[,&nbsp;niter,&nbsp;verbose])</td>
+<td>sample the indicator and parameters</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.sample_indicator" title="nipy.algorithms.clustering.bgmm.BGMM.sample_indicator"><code class="xref py py-obj docutils literal"><span class="pre">sample_indicator</span></code></a>(like)</td>
+<td>sample the indicator from the likelihood</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.set_priors" title="nipy.algorithms.clustering.bgmm.BGMM.set_priors"><code class="xref py py-obj docutils literal"><span class="pre">set_priors</span></code></a>(prior_means,&nbsp;prior_weights,&nbsp;...)</td>
+<td>Set the prior of the BGMM</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.update" title="nipy.algorithms.clustering.bgmm.BGMM.update"><code class="xref py py-obj docutils literal"><span class="pre">update</span></code></a>(x,&nbsp;z)</td>
+<td>update function (draw a sample of the GMM parameters)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.update_means" title="nipy.algorithms.clustering.bgmm.BGMM.update_means"><code class="xref py py-obj docutils literal"><span class="pre">update_means</span></code></a>(x,&nbsp;z)</td>
+<td>Given the allocation vector z,</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.update_precisions" title="nipy.algorithms.clustering.bgmm.BGMM.update_precisions"><code class="xref py py-obj docutils literal"><span class="pre">update_precisions</span></code></a>(x,&nbsp;z)</td>
+<td>Given the allocation vector z,</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM.update_weights" title="nipy.algorithms.clustering.bgmm.BGMM.update_weights"><code class="xref py py-obj docutils literal"><span class="pre">update_weights</span></code></a>(z)</td>
+<td>Given the allocation vector z, resample the weights parameter</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>k=1</em>, <em>dim=1</em>, <em>means=None</em>, <em>precisions=None</em>, <em>weights=None</em>, <em>shrinkage=None</em>, <em>dof=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the structure with the dimensions of the problem
+Eventually provide different terms</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.average_log_like">
+<code class="descname">average_log_like</code><span class="sig-paren">(</span><em>x</em>, <em>tiny=1e-15</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.average_log_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the averaged log-likelihood of the mode for the dataset x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x:  array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p class="last"><strong>tiny = 1.e-15: a small constant to avoid numerical singularities</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.bayes_factor">
+<code class="descname">bayes_factor</code><span class="sig-paren">(</span><em>x</em>, <em>z</em>, <em>nperm=0</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.bayes_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the Bayes Factor of the current model using Chib&#8217;s method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (nb_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data from which bic is computed</p>
+</div></blockquote>
+<p><strong>z: array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote>
+<div><p>the corresponding classification</p>
+</div></blockquote>
+<p><strong>nperm=0: int</strong> :</p>
+<blockquote>
+<div><p>the number of permutations to sample
+to model the label switching issue
+in the computation of the Bayes Factor
+By default, exhaustive permutations are used</p>
+</div></blockquote>
+<p><strong>verbose=0: verbosity mode</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>bf (float) the computed evidence (Bayes factor)</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>See: Marginal Likelihood from the Gibbs Output
+Journal article by Siddhartha Chib;
+Journal of the American Statistical Association, Vol. 90, 1995</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.bic">
+<code class="descname">bic</code><span class="sig-paren">(</span><em>like</em>, <em>tiny=1e-15</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.bic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computation of bic approximation of evidence</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>like, array of shape (n_samples, self.k)</strong> :</p>
+<blockquote>
+<div><p>component-wise likelihood</p>
+</div></blockquote>
+<p><strong>tiny=1.e-15, a small constant to avoid numerical singularities</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>the bic value, float</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.check">
+<code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checking the shape of sifferent matrices involved in the model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.check_x">
+<code class="descname">check_x</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.check_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>essentially check that x.shape[1]==self.dim</p>
+<p>x is returned with possibly reshaping</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.conditional_posterior_proba">
+<code class="descname">conditional_posterior_proba</code><span class="sig-paren">(</span><em>x</em>, <em>z</em>, <em>perm=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.conditional_posterior_proba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the probability of the current parameters of self
+given x and z</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (nb_samples, dim),</strong> :</p>
+<blockquote>
+<div><p>the data from which bic is computed</p>
+</div></blockquote>
+<p><strong>z: array of shape (nb_samples), type = np.int,</strong> :</p>
+<blockquote>
+<div><p>the corresponding classification</p>
+</div></blockquote>
+<p><strong>perm: array ok shape(nperm, self.k),typ=np.int, optional</strong> :</p>
+<blockquote class="last">
+<div><p>all permutation of z under which things will be recomputed
+By default, no permutation is performed</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.estimate">
+<code class="descname">estimate</code><span class="sig-paren">(</span><em>x</em>, <em>niter=100</em>, <em>delta=0.0001</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimation of the model given a dataset x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (n_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data from which the model is estimated</p>
+</div></blockquote>
+<p><strong>niter=100: maximal number of iterations in the estimation process</strong> :</p>
+<p><strong>delta = 1.e-4: increment of data likelihood at which</strong> :</p>
+<blockquote>
+<div><p>convergence is declared</p>
+</div></blockquote>
+<p><strong>verbose=0: verbosity mode</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>bic</strong> : an asymptotic approximation of model evidence</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.evidence">
+<code class="descname">evidence</code><span class="sig-paren">(</span><em>x</em>, <em>z</em>, <em>nperm=0</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.evidence" title="Permalink to this definition">¶</a></dt>
+<dd><p>See bayes_factor(self, x, z, nperm=0, verbose=0)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.guess_priors">
+<code class="descname">guess_priors</code><span class="sig-paren">(</span><em>x</em>, <em>nocheck=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.guess_priors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the priors in order of having them weakly uninformative
+this is from  Fraley and raftery;
+Journal of Classification 24:155-181 (2007)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x, array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>nocheck: boolean, optional,</strong> :</p>
+<blockquote class="last">
+<div><p>if nocheck==True, check is skipped</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.guess_regularizing">
+<code class="descname">guess_regularizing</code><span class="sig-paren">(</span><em>x</em>, <em>bcheck=1</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.guess_regularizing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the regularizing priors as weakly informative
+according to Fraley and raftery;
+Journal of Classification 24:155-181 (2007)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (n_samples,dim)</strong> :</p>
+<blockquote class="last">
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialize z using a k-means algorithm, then upate the parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote class="last">
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.initialize_and_estimate">
+<code class="descname">initialize_and_estimate</code><span class="sig-paren">(</span><em>x</em>, <em>z=None</em>, <em>niter=100</em>, <em>delta=0.0001</em>, <em>ninit=1</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.initialize_and_estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimation of self given x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (n_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data from which the model is estimated</p>
+</div></blockquote>
+<p><strong>z = None: array of shape (n_samples)</strong> :</p>
+<blockquote>
+<div><p>a prior labelling of the data to initialize the computation</p>
+</div></blockquote>
+<p><strong>niter=100: maximal number of iterations in the estimation process</strong> :</p>
+<p><strong>delta = 1.e-4: increment of data likelihood at which</strong> :</p>
+<blockquote>
+<div><p>convergence is declared</p>
+</div></blockquote>
+<p><strong>ninit=1: number of initialization performed</strong> :</p>
+<blockquote>
+<div><p>to reach a good solution</p>
+</div></blockquote>
+<p><strong>verbose=0: verbosity mode</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>the best model is returned</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.likelihood">
+<code class="descname">likelihood</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the likelihood of the model for the data x
+the values are weighted by the components weights</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>like, array of shape(n_samples,self.k)</strong> :</p>
+<blockquote class="last">
+<div><p>component-wise likelihood</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.map_label">
+<code class="descname">map_label</code><span class="sig-paren">(</span><em>x</em>, <em>like=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.map_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the MAP labelling of x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (n_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data under study</p>
+</div></blockquote>
+<p><strong>like=None array of shape(n_samples,self.k)</strong> :</p>
+<blockquote>
+<div><p>component-wise likelihood
+if like==None, it is recomputed</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>z: array of shape(n_samples): the resulting MAP labelling</strong> :</p>
+<blockquote class="last">
+<div><p>of the rows of x</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.mixture_likelihood">
+<code class="descname">mixture_likelihood</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.mixture_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the likelihood of the mixture for x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote class="last">
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.plugin">
+<code class="descname">plugin</code><span class="sig-paren">(</span><em>means</em>, <em>precisions</em>, <em>weights</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set manually the weights, means and precision of the model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>means: array of shape (self.k,self.dim)</strong> :</p>
+<p><strong>precisions:  array of shape (self.k,self.dim,self.dim)</strong> :</p>
+<blockquote>
+<div><p>or (self.k, self.dim)</p>
+</div></blockquote>
+<p class="last"><strong>weights: array of shape (self.k)</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.pop">
+<code class="descname">pop</code><span class="sig-paren">(</span><em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the population, i.e. the statistics of allocation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>z array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote>
+<div><p>the allocation variable</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>hist</strong> : array shape (self.k) count variable</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.probability_under_prior">
+<code class="descname">probability_under_prior</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.probability_under_prior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the probability of the current parameters of self
+given the priors</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.sample">
+<code class="descname">sample</code><span class="sig-paren">(</span><em>x</em>, <em>niter=1</em>, <em>mem=0</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample the indicator and parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>niter=1</strong> : the number of iterations to perform</p>
+<p><strong>mem=0: if mem, the best values of the parameters are computed</strong> :</p>
+<p><strong>verbose=0: verbosity mode</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>best_weights: array of shape (self.k)</strong> :</p>
+<p><strong>best_means: array of shape (self.k, self.dim)</strong> :</p>
+<p><strong>best_precisions: array of shape (self.k, self.dim, self.dim)</strong> :</p>
+<p><strong>possibleZ: array of shape (nb_samples, niter)</strong> :</p>
+<blockquote class="last">
+<div><p>the z that give the highest posterior
+to the data is returned first</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.sample_and_average">
+<code class="descname">sample_and_average</code><span class="sig-paren">(</span><em>x</em>, <em>niter=1</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.sample_and_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample the indicator and parameters
+the average values for weights,means, precisions are returned</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x = array of shape (nb_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data from which bic is computed</p>
+</div></blockquote>
+<p><strong>niter=1: number of iterations</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>weights: array of shape (self.k)</strong> :</p>
+<p><strong>means: array of shape (self.k,self.dim)</strong> :</p>
+<p><strong>precisions:  array of shape (self.k,self.dim,self.dim)</strong> :</p>
+<blockquote class="last">
+<div><p>or (self.k, self.dim)
+these are the average parameters across samplings</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>All this makes sense only if no label switching as occurred so this is
+wrong in general (asymptotically).</p>
+<p>fix: implement a permutation procedure for components identification</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.sample_indicator">
+<code class="descname">sample_indicator</code><span class="sig-paren">(</span><em>like</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.sample_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample the indicator from the likelihood</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>like: array of shape (nb_samples,self.k)</strong> :</p>
+<blockquote>
+<div><p>component-wise likelihood</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>z: array of shape(nb_samples): a draw of the membership variable</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.set_priors">
+<code class="descname">set_priors</code><span class="sig-paren">(</span><em>prior_means</em>, <em>prior_weights</em>, <em>prior_scale</em>, <em>prior_dof</em>, <em>prior_shrinkage</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.set_priors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the prior of the BGMM</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>prior_means: array of shape (self.k,self.dim)</strong> :</p>
+<p><strong>prior_weights: array of shape (self.k)</strong> :</p>
+<p><strong>prior_scale: array of shape (self.k,self.dim,self.dim)</strong> :</p>
+<p><strong>prior_dof: array of shape (self.k)</strong> :</p>
+<p class="last"><strong>prior_shrinkage: array of shape (self.k)</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.show">
+<code class="descname">show</code><span class="sig-paren">(</span><em>x</em>, <em>gd</em>, <em>density=None</em>, <em>axes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to plot a GMM, still in progress
+Currently, works only in 1D and 2D</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape(n_samples, dim)</strong> :</p>
+<blockquote>
+<div><p>the data under study</p>
+</div></blockquote>
+<p><strong>gd: GridDescriptor instance</strong> :</p>
+<p><strong>density: array os shape(prod(gd.n_bins))</strong> :</p>
+<blockquote class="last">
+<div><p>density of the model one the discrete grid implied by gd
+by default, this is recomputed</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.show_components">
+<code class="descname">show_components</code><span class="sig-paren">(</span><em>x</em>, <em>gd</em>, <em>density=None</em>, <em>mpaxes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.show_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to plot a GMM &#8211; Currently, works only in 1D</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape(n_samples, dim)</strong> :</p>
+<blockquote>
+<div><p>the data under study</p>
+</div></blockquote>
+<p><strong>gd: GridDescriptor instance</strong> :</p>
+<p><strong>density: array os shape(prod(gd.n_bins))</strong> :</p>
+<blockquote>
+<div><p>density of the model one the discrete grid implied by gd
+by default, this is recomputed</p>
+</div></blockquote>
+<p><strong>mpaxes: axes handle to make the figure, optional,</strong> :</p>
+<blockquote class="last">
+<div><p>if None, a new figure is created</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>x</em>, <em>tiny=1e-15</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the log-likelihood of the mixture for x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ll: array of shape(n_samples)</strong> :</p>
+<blockquote class="last">
+<div><p>the log-likelihood of the rows of x</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>x</em>, <em>z=None</em>, <em>niter=100</em>, <em>delta=0.0001</em>, <em>ninit=1</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Idem initialize_and_estimate</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.unweighted_likelihood">
+<code class="descname">unweighted_likelihood</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.unweighted_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the likelihood of each data for each component
+the values are not weighted by the component weights</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>like, array of shape(n_samples,self.k)</strong> :</p>
+<blockquote class="last">
+<div><p>unweighted component-wise likelihood</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Hopefully faster</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.unweighted_likelihood_">
+<code class="descname">unweighted_likelihood_</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.unweighted_likelihood_" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the likelihood of each data for each component
+the values are not weighted by the component weights</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>like, array of shape(n_samples,self.k)</strong> :</p>
+<blockquote class="last">
+<div><p>unweighted component-wise likelihood</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>x</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>update function (draw a sample of the GMM parameters)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>z array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote class="last">
+<div><p>the corresponding classification</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.update_means">
+<code class="descname">update_means</code><span class="sig-paren">(</span><em>x</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.update_means" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the allocation vector z,
+and the corresponding data x,
+resample the mean</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>z: array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote class="last">
+<div><p>the corresponding classification</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.update_precisions">
+<code class="descname">update_precisions</code><span class="sig-paren">(</span><em>x</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.update_precisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the allocation vector z,
+and the corresponding data x,
+resample the precisions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>z array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote class="last">
+<div><p>the corresponding classification</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.BGMM.update_weights">
+<code class="descname">update_weights</code><span class="sig-paren">(</span><em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.BGMM.update_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the allocation vector z, resample the weights parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>z array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote class="last">
+<div><p>the allocation variable</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="vbgmm">
+<h3><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM" title="nipy.algorithms.clustering.bgmm.VBGMM"><code class="xref py py-class docutils literal"><span class="pre">VBGMM</span></code></a><a class="headerlink" href="#vbgmm" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM">
+<em class="property">class </em><code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">VBGMM</code><span class="sig-paren">(</span><em>k=1</em>, <em>dim=1</em>, <em>means=None</em>, <em>precisions=None</em>, <em>weights=None</em>, <em>shrinkage=None</em>, <em>dof=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nipy.algorithms.clustering.bgmm.BGMM" title="nipy.algorithms.clustering.bgmm.BGMM"><code class="xref py py-class docutils literal"><span class="pre">nipy.algorithms.clustering.bgmm.BGMM</span></code></a></p>
+<p>Subclass of Bayesian GMMs (BGMM)
+that implements Variational Bayes estimation of the parameters</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.bayes_factor" title="nipy.algorithms.clustering.bgmm.VBGMM.bayes_factor"><code class="xref py py-obj docutils literal"><span class="pre">bayes_factor</span></code></a>(x,&nbsp;z[,&nbsp;nperm,&nbsp;verbose])</td>
+<td>Evaluate the Bayes Factor of the current model using Chib&#8217;s method</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.check" title="nipy.algorithms.clustering.bgmm.VBGMM.check"><code class="xref py py-obj docutils literal"><span class="pre">check</span></code></a>()</td>
+<td>Checking the shape of sifferent matrices involved in the model</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.conditional_posterior_proba" title="nipy.algorithms.clustering.bgmm.VBGMM.conditional_posterior_proba"><code class="xref py py-obj docutils literal"><span class="pre">conditional_posterior_proba</span></code></a>(x,&nbsp;z[,&nbsp;perm])</td>
+<td>Compute the probability of the current parameters of self</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.estimate" title="nipy.algorithms.clustering.bgmm.VBGMM.estimate"><code class="xref py py-obj docutils literal"><span class="pre">estimate</span></code></a>(x[,&nbsp;niter,&nbsp;delta,&nbsp;verbose])</td>
+<td>estimation of self given x</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.evidence" title="nipy.algorithms.clustering.bgmm.VBGMM.evidence"><code class="xref py py-obj docutils literal"><span class="pre">evidence</span></code></a>(x[,&nbsp;like,&nbsp;verbose])</td>
+<td>computation of evidence bound aka free energy</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.guess_priors" title="nipy.algorithms.clustering.bgmm.VBGMM.guess_priors"><code class="xref py py-obj docutils literal"><span class="pre">guess_priors</span></code></a>(x[,&nbsp;nocheck])</td>
+<td>Set the priors in order of having them weakly uninformative</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.initialize" title="nipy.algorithms.clustering.bgmm.VBGMM.initialize"><code class="xref py py-obj docutils literal"><span class="pre">initialize</span></code></a>(x)</td>
+<td>initialize z using a k-means algorithm, then upate the parameters</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.likelihood" title="nipy.algorithms.clustering.bgmm.VBGMM.likelihood"><code class="xref py py-obj docutils literal"><span class="pre">likelihood</span></code></a>(x)</td>
+<td>return the likelihood of the model for the data x</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.map_label" title="nipy.algorithms.clustering.bgmm.VBGMM.map_label"><code class="xref py py-obj docutils literal"><span class="pre">map_label</span></code></a>(x[,&nbsp;like])</td>
+<td>return the MAP labelling of x</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.pop" title="nipy.algorithms.clustering.bgmm.VBGMM.pop"><code class="xref py py-obj docutils literal"><span class="pre">pop</span></code></a>(like[,&nbsp;tiny])</td>
+<td>compute the population, i.e. the statistics of allocation</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.probability_under_prior" title="nipy.algorithms.clustering.bgmm.VBGMM.probability_under_prior"><code class="xref py py-obj docutils literal"><span class="pre">probability_under_prior</span></code></a>()</td>
+<td>Compute the probability of the current parameters of self</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.sample" title="nipy.algorithms.clustering.bgmm.VBGMM.sample"><code class="xref py py-obj docutils literal"><span class="pre">sample</span></code></a>(x[,&nbsp;niter,&nbsp;mem,&nbsp;verbose])</td>
+<td>sample the indicator and parameters</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.sample_and_average" title="nipy.algorithms.clustering.bgmm.VBGMM.sample_and_average"><code class="xref py py-obj docutils literal"><span class="pre">sample_and_average</span></code></a>(x[,&nbsp;niter,&nbsp;verbose])</td>
+<td>sample the indicator and parameters</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.sample_indicator" title="nipy.algorithms.clustering.bgmm.VBGMM.sample_indicator"><code class="xref py py-obj docutils literal"><span class="pre">sample_indicator</span></code></a>(like)</td>
+<td>sample the indicator from the likelihood</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.set_priors" title="nipy.algorithms.clustering.bgmm.VBGMM.set_priors"><code class="xref py py-obj docutils literal"><span class="pre">set_priors</span></code></a>(prior_means,&nbsp;prior_weights,&nbsp;...)</td>
+<td>Set the prior of the BGMM</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.update" title="nipy.algorithms.clustering.bgmm.VBGMM.update"><code class="xref py py-obj docutils literal"><span class="pre">update</span></code></a>(x,&nbsp;z)</td>
+<td>update function (draw a sample of the GMM parameters)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.update_means" title="nipy.algorithms.clustering.bgmm.VBGMM.update_means"><code class="xref py py-obj docutils literal"><span class="pre">update_means</span></code></a>(x,&nbsp;z)</td>
+<td>Given the allocation vector z,</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.update_precisions" title="nipy.algorithms.clustering.bgmm.VBGMM.update_precisions"><code class="xref py py-obj docutils literal"><span class="pre">update_precisions</span></code></a>(x,&nbsp;z)</td>
+<td>Given the allocation vector z,</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.clustering.bgmm.VBGMM.update_weights" title="nipy.algorithms.clustering.bgmm.VBGMM.update_weights"><code class="xref py py-obj docutils literal"><span class="pre">update_weights</span></code></a>(z)</td>
+<td>Given the allocation vector z, resample the weights parameter</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>k=1</em>, <em>dim=1</em>, <em>means=None</em>, <em>precisions=None</em>, <em>weights=None</em>, <em>shrinkage=None</em>, <em>dof=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.average_log_like">
+<code class="descname">average_log_like</code><span class="sig-paren">(</span><em>x</em>, <em>tiny=1e-15</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.average_log_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the averaged log-likelihood of the mode for the dataset x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x:  array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p class="last"><strong>tiny = 1.e-15: a small constant to avoid numerical singularities</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.bayes_factor">
+<code class="descname">bayes_factor</code><span class="sig-paren">(</span><em>x</em>, <em>z</em>, <em>nperm=0</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.bayes_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the Bayes Factor of the current model using Chib&#8217;s method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (nb_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data from which bic is computed</p>
+</div></blockquote>
+<p><strong>z: array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote>
+<div><p>the corresponding classification</p>
+</div></blockquote>
+<p><strong>nperm=0: int</strong> :</p>
+<blockquote>
+<div><p>the number of permutations to sample
+to model the label switching issue
+in the computation of the Bayes Factor
+By default, exhaustive permutations are used</p>
+</div></blockquote>
+<p><strong>verbose=0: verbosity mode</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>bf (float) the computed evidence (Bayes factor)</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>See: Marginal Likelihood from the Gibbs Output
+Journal article by Siddhartha Chib;
+Journal of the American Statistical Association, Vol. 90, 1995</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.bic">
+<code class="descname">bic</code><span class="sig-paren">(</span><em>like</em>, <em>tiny=1e-15</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.bic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computation of bic approximation of evidence</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>like, array of shape (n_samples, self.k)</strong> :</p>
+<blockquote>
+<div><p>component-wise likelihood</p>
+</div></blockquote>
+<p><strong>tiny=1.e-15, a small constant to avoid numerical singularities</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>the bic value, float</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.check">
+<code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checking the shape of sifferent matrices involved in the model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.check_x">
+<code class="descname">check_x</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.check_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>essentially check that x.shape[1]==self.dim</p>
+<p>x is returned with possibly reshaping</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.conditional_posterior_proba">
+<code class="descname">conditional_posterior_proba</code><span class="sig-paren">(</span><em>x</em>, <em>z</em>, <em>perm=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.conditional_posterior_proba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the probability of the current parameters of self
+given x and z</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (nb_samples, dim),</strong> :</p>
+<blockquote>
+<div><p>the data from which bic is computed</p>
+</div></blockquote>
+<p><strong>z: array of shape (nb_samples), type = np.int,</strong> :</p>
+<blockquote>
+<div><p>the corresponding classification</p>
+</div></blockquote>
+<p><strong>perm: array ok shape(nperm, self.k),typ=np.int, optional</strong> :</p>
+<blockquote class="last">
+<div><p>all permutation of z under which things will be recomputed
+By default, no permutation is performed</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.estimate">
+<code class="descname">estimate</code><span class="sig-paren">(</span><em>x</em>, <em>niter=100</em>, <em>delta=0.0001</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>estimation of self given x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (nb_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data from which the model is estimated</p>
+</div></blockquote>
+<p><strong>z = None: array of shape (nb_samples)</strong> :</p>
+<blockquote>
+<div><p>a prior labelling of the data to initialize the computation</p>
+</div></blockquote>
+<p><strong>niter=100: maximal number of iterations in the estimation process</strong> :</p>
+<p><strong>delta = 1.e-4: increment of data likelihood at which</strong> :</p>
+<blockquote>
+<div><p>convergence is declared</p>
+</div></blockquote>
+<p><strong>verbose=0:</strong> :</p>
+<blockquote class="last">
+<div><p>verbosity mode</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.evidence">
+<code class="descname">evidence</code><span class="sig-paren">(</span><em>x</em>, <em>like=None</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.evidence" title="Permalink to this definition">¶</a></dt>
+<dd><p>computation of evidence bound aka free energy</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (nb_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data from which evidence is computed</p>
+</div></blockquote>
+<p><strong>like=None: array of shape (nb_samples, self.k), optional</strong> :</p>
+<blockquote>
+<div><p>component-wise likelihood
+If None, it is recomputed</p>
+</div></blockquote>
+<p><strong>verbose=0: verbosity model</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>ev (float) the computed evidence</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.guess_priors">
+<code class="descname">guess_priors</code><span class="sig-paren">(</span><em>x</em>, <em>nocheck=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.guess_priors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the priors in order of having them weakly uninformative
+this is from  Fraley and raftery;
+Journal of Classification 24:155-181 (2007)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x, array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>nocheck: boolean, optional,</strong> :</p>
+<blockquote class="last">
+<div><p>if nocheck==True, check is skipped</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.guess_regularizing">
+<code class="descname">guess_regularizing</code><span class="sig-paren">(</span><em>x</em>, <em>bcheck=1</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.guess_regularizing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the regularizing priors as weakly informative
+according to Fraley and raftery;
+Journal of Classification 24:155-181 (2007)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (n_samples,dim)</strong> :</p>
+<blockquote class="last">
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialize z using a k-means algorithm, then upate the parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote class="last">
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.initialize_and_estimate">
+<code class="descname">initialize_and_estimate</code><span class="sig-paren">(</span><em>x</em>, <em>z=None</em>, <em>niter=100</em>, <em>delta=0.0001</em>, <em>ninit=1</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.initialize_and_estimate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimation of self given x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (n_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data from which the model is estimated</p>
+</div></blockquote>
+<p><strong>z = None: array of shape (n_samples)</strong> :</p>
+<blockquote>
+<div><p>a prior labelling of the data to initialize the computation</p>
+</div></blockquote>
+<p><strong>niter=100: maximal number of iterations in the estimation process</strong> :</p>
+<p><strong>delta = 1.e-4: increment of data likelihood at which</strong> :</p>
+<blockquote>
+<div><p>convergence is declared</p>
+</div></blockquote>
+<p><strong>ninit=1: number of initialization performed</strong> :</p>
+<blockquote>
+<div><p>to reach a good solution</p>
+</div></blockquote>
+<p><strong>verbose=0: verbosity mode</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>the best model is returned</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.likelihood">
+<code class="descname">likelihood</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the likelihood of the model for the data x
+the values are weighted by the components weights</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (nb_samples, self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>like: array of shape(nb_samples, self.k)</strong> :</p>
+<blockquote class="last">
+<div><p>component-wise likelihood</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.map_label">
+<code class="descname">map_label</code><span class="sig-paren">(</span><em>x</em>, <em>like=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.map_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the MAP labelling of x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (nb_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data under study</p>
+</div></blockquote>
+<p><strong>like=None array of shape(nb_samples,self.k)</strong> :</p>
+<blockquote>
+<div><p>component-wise likelihood
+if like==None, it is recomputed</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>z: array of shape(nb_samples): the resulting MAP labelling</strong> :</p>
+<blockquote class="last">
+<div><p>of the rows of x</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.mixture_likelihood">
+<code class="descname">mixture_likelihood</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.mixture_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the likelihood of the mixture for x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote class="last">
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.plugin">
+<code class="descname">plugin</code><span class="sig-paren">(</span><em>means</em>, <em>precisions</em>, <em>weights</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set manually the weights, means and precision of the model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>means: array of shape (self.k,self.dim)</strong> :</p>
+<p><strong>precisions:  array of shape (self.k,self.dim,self.dim)</strong> :</p>
+<blockquote>
+<div><p>or (self.k, self.dim)</p>
+</div></blockquote>
+<p class="last"><strong>weights: array of shape (self.k)</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.pop">
+<code class="descname">pop</code><span class="sig-paren">(</span><em>like</em>, <em>tiny=1e-15</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the population, i.e. the statistics of allocation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>like array of shape (nb_samples, self.k):</strong> :</p>
+<blockquote class="last">
+<div><p>the likelihood of each item being in each class</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.probability_under_prior">
+<code class="descname">probability_under_prior</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.probability_under_prior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the probability of the current parameters of self
+given the priors</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.sample">
+<code class="descname">sample</code><span class="sig-paren">(</span><em>x</em>, <em>niter=1</em>, <em>mem=0</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample the indicator and parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>niter=1</strong> : the number of iterations to perform</p>
+<p><strong>mem=0: if mem, the best values of the parameters are computed</strong> :</p>
+<p><strong>verbose=0: verbosity mode</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>best_weights: array of shape (self.k)</strong> :</p>
+<p><strong>best_means: array of shape (self.k, self.dim)</strong> :</p>
+<p><strong>best_precisions: array of shape (self.k, self.dim, self.dim)</strong> :</p>
+<p><strong>possibleZ: array of shape (nb_samples, niter)</strong> :</p>
+<blockquote class="last">
+<div><p>the z that give the highest posterior
+to the data is returned first</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.sample_and_average">
+<code class="descname">sample_and_average</code><span class="sig-paren">(</span><em>x</em>, <em>niter=1</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.sample_and_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample the indicator and parameters
+the average values for weights,means, precisions are returned</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x = array of shape (nb_samples,dim)</strong> :</p>
+<blockquote>
+<div><p>the data from which bic is computed</p>
+</div></blockquote>
+<p><strong>niter=1: number of iterations</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>weights: array of shape (self.k)</strong> :</p>
+<p><strong>means: array of shape (self.k,self.dim)</strong> :</p>
+<p><strong>precisions:  array of shape (self.k,self.dim,self.dim)</strong> :</p>
+<blockquote class="last">
+<div><p>or (self.k, self.dim)
+these are the average parameters across samplings</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>All this makes sense only if no label switching as occurred so this is
+wrong in general (asymptotically).</p>
+<p>fix: implement a permutation procedure for components identification</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.sample_indicator">
+<code class="descname">sample_indicator</code><span class="sig-paren">(</span><em>like</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.sample_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample the indicator from the likelihood</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>like: array of shape (nb_samples,self.k)</strong> :</p>
+<blockquote>
+<div><p>component-wise likelihood</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>z: array of shape(nb_samples): a draw of the membership variable</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.set_priors">
+<code class="descname">set_priors</code><span class="sig-paren">(</span><em>prior_means</em>, <em>prior_weights</em>, <em>prior_scale</em>, <em>prior_dof</em>, <em>prior_shrinkage</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.set_priors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the prior of the BGMM</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>prior_means: array of shape (self.k,self.dim)</strong> :</p>
+<p><strong>prior_weights: array of shape (self.k)</strong> :</p>
+<p><strong>prior_scale: array of shape (self.k,self.dim,self.dim)</strong> :</p>
+<p><strong>prior_dof: array of shape (self.k)</strong> :</p>
+<p class="last"><strong>prior_shrinkage: array of shape (self.k)</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.show">
+<code class="descname">show</code><span class="sig-paren">(</span><em>x</em>, <em>gd</em>, <em>density=None</em>, <em>axes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to plot a GMM, still in progress
+Currently, works only in 1D and 2D</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape(n_samples, dim)</strong> :</p>
+<blockquote>
+<div><p>the data under study</p>
+</div></blockquote>
+<p><strong>gd: GridDescriptor instance</strong> :</p>
+<p><strong>density: array os shape(prod(gd.n_bins))</strong> :</p>
+<blockquote class="last">
+<div><p>density of the model one the discrete grid implied by gd
+by default, this is recomputed</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.show_components">
+<code class="descname">show_components</code><span class="sig-paren">(</span><em>x</em>, <em>gd</em>, <em>density=None</em>, <em>mpaxes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.show_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to plot a GMM &#8211; Currently, works only in 1D</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape(n_samples, dim)</strong> :</p>
+<blockquote>
+<div><p>the data under study</p>
+</div></blockquote>
+<p><strong>gd: GridDescriptor instance</strong> :</p>
+<p><strong>density: array os shape(prod(gd.n_bins))</strong> :</p>
+<blockquote>
+<div><p>density of the model one the discrete grid implied by gd
+by default, this is recomputed</p>
+</div></blockquote>
+<p><strong>mpaxes: axes handle to make the figure, optional,</strong> :</p>
+<blockquote class="last">
+<div><p>if None, a new figure is created</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>x</em>, <em>tiny=1e-15</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the log-likelihood of the mixture for x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ll: array of shape(n_samples)</strong> :</p>
+<blockquote class="last">
+<div><p>the log-likelihood of the rows of x</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>x</em>, <em>z=None</em>, <em>niter=100</em>, <em>delta=0.0001</em>, <em>ninit=1</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Idem initialize_and_estimate</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.unweighted_likelihood">
+<code class="descname">unweighted_likelihood</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.unweighted_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the likelihood of each data for each component
+the values are not weighted by the component weights</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>like, array of shape(n_samples,self.k)</strong> :</p>
+<blockquote class="last">
+<div><p>unweighted component-wise likelihood</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Hopefully faster</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.unweighted_likelihood_">
+<code class="descname">unweighted_likelihood_</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.unweighted_likelihood_" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the likelihood of each data for each component
+the values are not weighted by the component weights</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (n_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>like, array of shape(n_samples,self.k)</strong> :</p>
+<blockquote class="last">
+<div><p>unweighted component-wise likelihood</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>x</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>update function (draw a sample of the GMM parameters)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>z array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote class="last">
+<div><p>the corresponding classification</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.update_means">
+<code class="descname">update_means</code><span class="sig-paren">(</span><em>x</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.update_means" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the allocation vector z,
+and the corresponding data x,
+resample the mean</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>z: array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote class="last">
+<div><p>the corresponding classification</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.update_precisions">
+<code class="descname">update_precisions</code><span class="sig-paren">(</span><em>x</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.update_precisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the allocation vector z,
+and the corresponding data x,
+resample the precisions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x array of shape (nb_samples,self.dim)</strong> :</p>
+<blockquote>
+<div><p>the data used in the estimation process</p>
+</div></blockquote>
+<p><strong>z array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote class="last">
+<div><p>the corresponding classification</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.clustering.bgmm.VBGMM.update_weights">
+<code class="descname">update_weights</code><span class="sig-paren">(</span><em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.VBGMM.update_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the allocation vector z, resample the weights parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>z array of shape (nb_samples), type = np.int</strong> :</p>
+<blockquote class="last">
+<div><p>the allocation variable</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.detsh">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">detsh</code><span class="sig-paren">(</span><em>H</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.detsh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Routine for the computation of determinants of symmetric positive
+matrices</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>H array of shape(n,n)</strong> :</p>
+<blockquote>
+<div><p>the input matrix, assumed symmmetric and positive</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>dh: float, the determinant</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.dirichlet_eval">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">dirichlet_eval</code><span class="sig-paren">(</span><em>w</em>, <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.dirichlet_eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the probability of a certain discrete draw w
+from the Dirichlet density with parameters alpha</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>w: array of shape (n)</strong> :</p>
+<p class="last"><strong>alpha: array of shape (n)</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.dkl_dirichlet">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">dkl_dirichlet</code><span class="sig-paren">(</span><em>w1</em>, <em>w2</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.dkl_dirichlet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the KL divergence between two dirichlet distribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>w1: array of shape(n),</strong> :</p>
+<blockquote>
+<div><p>the parameters of the first dirichlet density</p>
+</div></blockquote>
+<p><strong>w2: array of shape(n),</strong> :</p>
+<blockquote class="last">
+<div><p>the parameters of the second dirichlet density</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.dkl_gaussian">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">dkl_gaussian</code><span class="sig-paren">(</span><em>m1</em>, <em>P1</em>, <em>m2</em>, <em>P2</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.dkl_gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the KL divergence between gausians densities</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m1: array of shape (n),</strong> :</p>
+<blockquote>
+<div><p>the mean parameter of the first density</p>
+</div></blockquote>
+<p><strong>P1: array of shape(n,n),</strong> :</p>
+<blockquote>
+<div><p>the precision parameters of the first density</p>
+</div></blockquote>
+<p><strong>m2: array of shape (n),</strong> :</p>
+<blockquote>
+<div><p>the mean parameter of the second density</p>
+</div></blockquote>
+<p><strong>P2: array of shape(n,n),</strong> :</p>
+<blockquote class="last">
+<div><p>the precision parameters of the second density</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.dkl_wishart">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">dkl_wishart</code><span class="sig-paren">(</span><em>a1</em>, <em>B1</em>, <em>a2</em>, <em>B2</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.dkl_wishart" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the KL divergence bteween two Wishart distribution of
+parameters (a1,B1) and (a2,B2),</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>a1: Float,</strong> :</p>
+<blockquote>
+<div><p>degrees of freedom of the first density</p>
+</div></blockquote>
+<p><strong>B1: array of shape(n,n),</strong> :</p>
+<blockquote>
+<div><p>scale matrix of the  first density</p>
+</div></blockquote>
+<p><strong>a2: Float,</strong> :</p>
+<blockquote>
+<div><p>degrees of freedom of the second density</p>
+</div></blockquote>
+<p><strong>B2: array of shape(n,n),</strong> :</p>
+<blockquote>
+<div><p>scale matrix of the second density</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>dkl: float, the Kullback-Leibler divergence</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.generate_Wishart">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">generate_Wishart</code><span class="sig-paren">(</span><em>n</em>, <em>V</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.generate_Wishart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a sample from Wishart density</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n: float,</strong> :</p>
+<blockquote>
+<div><p>the number of degrees of freedom of the Wishart density</p>
+</div></blockquote>
+<p><strong>V: array of shape (n,n)</strong> :</p>
+<blockquote>
+<div><p>the scale matrix of the Wishart density</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>W: array of shape (n,n)</strong> :</p>
+<blockquote class="last">
+<div><p>the draw from Wishart density</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.generate_normals">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">generate_normals</code><span class="sig-paren">(</span><em>m</em>, <em>P</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.generate_normals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a Gaussian sample with mean m and precision P</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m array of shape n: the mean vector</strong> :</p>
+<p><strong>P array of shape (n,n): the precision matrix</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>ng</strong> : array of shape(n): a draw from the gaussian density</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.generate_perm">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">generate_perm</code><span class="sig-paren">(</span><em>k</em>, <em>nperm=100</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.generate_perm" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns an array of shape(nbperm, k) representing
+the permutations of k elements</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>k, int the number of elements to be permuted</strong> :</p>
+<p><strong>nperm=100 the maximal number of permutations</strong> :</p>
+<p><strong>if gamma(k+1)&gt;nperm: only nperm random draws are generated</strong> :</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>p: array of shape(nperm,k): each row is permutation of k</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.multinomial">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">multinomial</code><span class="sig-paren">(</span><em>probabilities</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.multinomial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate samples form a miltivariate distribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>probabilities: array of shape (nelements, nclasses):</strong> :</p>
+<blockquote>
+<div><p>likelihood of each element belongin to each class
+each row is assumedt to sum to 1
+One sample is draw from each row, resulting in</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>z array of shape (nelements): the draws,</strong> :</p>
+<blockquote class="last">
+<div><p>that take values in [0..nclasses-1]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.normal_eval">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">normal_eval</code><span class="sig-paren">(</span><em>mu</em>, <em>P</em>, <em>x</em>, <em>dP=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.normal_eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Probability of x under normal(mu, inv(P))</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mu: array of shape (n),</strong> :</p>
+<blockquote>
+<div><p>the mean parameter</p>
+</div></blockquote>
+<p><strong>P: array of shape (n, n),</strong> :</p>
+<blockquote>
+<div><p>the precision matrix</p>
+</div></blockquote>
+<p><strong>x: array of shape (n),</strong> :</p>
+<blockquote>
+<div><p>the data to be evaluated</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>(float) the density</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.algorithms.clustering.bgmm.wishart_eval">
+<code class="descclassname">nipy.algorithms.clustering.bgmm.</code><code class="descname">wishart_eval</code><span class="sig-paren">(</span><em>n</em>, <em>V</em>, <em>W</em>, <em>dV=None</em>, <em>dW=None</em>, <em>piV=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.clustering.bgmm.wishart_eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluation of the  probability of W under Wishart(n,V)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n: float,</strong> :</p>
+<blockquote>
+<div><p>the number of degrees of freedom (dofs)</p>
+</div></blockquote>
+<p><strong>V: array of shape (n,n)</strong> :</p>
+<blockquote>
+<div><p>the scale matrix of the Wishart density</p>
+</div></blockquote>
+<p><strong>W: array of shape (n,n)</strong> :</p>
+<blockquote>
+<div><p>the sample to be evaluated</p>
+</div></blockquote>
+<p><strong>dV: float, optional,</strong> :</p>
+<blockquote>
+<div><p>determinant of V</p>
+</div></blockquote>
+<p><strong>dW: float, optional,</strong> :</p>
+<blockquote>
+<div><p>determinant of W</p>
+</div></blockquote>
+<p><strong>piV: array of shape (n,n), optional</strong> :</p>
+<blockquote>
+<div><p>inverse of V</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>(float) the density</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="API"
+             >previous</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2005-2013, Neuroimaging in Python team.
+      Last updated on May 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Neuroimaging in Python &mdash; NIPY Documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nipy.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.4.0.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="NIPY Documentation" href="../../index.html" />
+    <link rel="up" title="API" href="../index.html" />
+    <link rel="next" title="labs.spatial_models.parcellation" href="nipy.labs.spatial_models.parcellation.html" />
+  <meta name="keywords" content="nipy, neuroimaging, python, neuroscience, time
+				 series">
+
+  </head>
+  <body role="document">
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+ <a href="../../index.html">
+  <img src="../../_static/reggie2.png" alt="NIPY logo"  border="0" />
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="nipy.labs.spatial_models.parcellation.html" title="labs.spatial_models.parcellation"
+             accesskey="N">next</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+  
+<h4> Site Navigation </h4>
+  <ul>
+    <li><a href="../../documentation.html">Documentation</a></li>
+    <li><a href="../../devel/index.html">Development</a></li>
+  </ul>
+
+<h4> NIPY Community </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://nipy.org/">Community Home</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/projects/">NIPY Projects</a></li>
+    <li><a class="reference external"
+	href="http://mail.scipy.org/mailman/listinfo/nipy-devel">Mailing List</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/license/index.html">License</a></li>
+  </ul>
+
+<h4> Github repo </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://github.com/nipy/nipy/">Nipy Github</a></li>
+  </ul>
+
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">labs.spatial_models.parcel_io</a><ul>
+<li><a class="reference internal" href="#module-nipy.labs.spatial_models.parcel_io">Module: <code class="docutils literal"><span class="pre">labs.spatial_models.parcel_io</span></code></a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="nipy.labs.spatial_models.parcellation.html"
+                        title="next chapter">labs.spatial_models.parcellation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/api/generated/nipy.labs.spatial_models.parcel_io.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+
+<div id="searchbox-ml" style="display: none">
+  <h3>Search mailing list archive</h3>
+  <script type="text/javascript">
+    function mlsearch(curobj)
+    {
+    curobj.q.value="site:http://mail.scipy.org/pipermail/nipy-devel/ "+curobj.userquery.value
+    }
+  </script>
+  <form action="http://www.google.com/search" method="get" onSubmit="mlsearch(this)">
+    <input name="userquery" size="13" type="text" /> <input type="submit" value="Go" />
+    <input name="q" type="hidden" />
+  </form>
+</div>
+  
+<div id="searchbox-site" style="display: none">
+  <h3>Search this site</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="13" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox-ml').show(0);</script>
+<script type="text/javascript">$('#searchbox-site').show(0);</script>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="labs-spatial-models-parcel-io">
+<h1>labs.spatial_models.parcel_io<a class="headerlink" href="#labs-spatial-models-parcel-io" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-nipy.labs.spatial_models.parcel_io">
+<span id="module-labs-spatial-models-parcel-io"></span><h2>Module: <code class="xref py py-mod docutils literal"><span class="pre">labs.spatial_models.parcel_io</span></code><a class="headerlink" href="#module-nipy.labs.spatial_models.parcel_io" title="Permalink to this headline">¶</a></h2>
+<p>Utility functions for mutli-subjectParcellation:
+this basically uses nipy io lib to perform IO opermation
+in parcel definition processes</p>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="nipy.labs.spatial_models.parcel_io.fixed_parcellation">
+<code class="descclassname">nipy.labs.spatial_models.parcel_io.</code><code class="descname">fixed_parcellation</code><span class="sig-paren">(</span><em>mask_image</em>, <em>betas</em>, <em>nbparcel</em>, <em>nn=6</em>, <em>method='ward'</em>, <em>write_dir=None</em>, <em>mu=10.0</em>, <em>verbose=0</em>, <em>fullpath=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.spatial_models.parcel_io.fixed_parcellation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fixed parcellation of a given dataset</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>domain/mask_image</strong> :</p>
+<p><strong>betas: list of paths to activation images from the subject</strong> :</p>
+<p><strong>nbparcel, int</strong> : number fo desired parcels</p>
+<p><strong>nn=6: number of nearest neighbors  to define the image topology</strong> :</p>
+<blockquote>
+<div><p>(6, 18 or 26)</p>
+</div></blockquote>
+<p><strong>method=&#8217;ward&#8217;: clustering method used, to be chosen among</strong> :</p>
+<blockquote>
+<div><p>&#8216;ward&#8217;, &#8216;gkm&#8217;, &#8216;ward_and-gkm&#8217;
+&#8216;ward&#8217;: Ward&#8217;s clustering algorithm
+&#8216;gkm&#8217;: Geodesic k-means algorithm, random initialization
+&#8216;gkm_and_ward&#8217;: idem, initialized by Ward&#8217;s clustering</p>
+</div></blockquote>
+<p><strong>write_di: string, topional, write directory.</strong> :</p>
+<blockquote>
+<div><p>If fullpath is None too, then no file output.</p>
+</div></blockquote>
+<p><strong>mu = 10., float: the relative weight of anatomical information</strong> :</p>
+<p><strong>verbose=0: verbosity mode</strong> :</p>
+<p><strong>fullpath=None, string,</strong> :</p>
+<blockquote class="last">
+<div><p>path of the output image
+If write_dir and fullpath are None then no file output.
+If only fullpath is None then it is the write dir + a name
+depending on the method.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Ward&#8217;s method takes time (about 6 minutes for a 60K voxels dataset)</p>
+<p>Geodesic k-means is &#8216;quick and dirty&#8217;</p>
+<p>Ward&#8217;s + GKM is expensive but quite good</p>
+<p>To reduce CPU time, rather use nn=6 (especially with Ward)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.labs.spatial_models.parcel_io.mask_parcellation">
+<code class="descclassname">nipy.labs.spatial_models.parcel_io.</code><code class="descname">mask_parcellation</code><span class="sig-paren">(</span><em>mask_images</em>, <em>nb_parcel</em>, <em>threshold=0</em>, <em>output_image=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.spatial_models.parcel_io.mask_parcellation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the parcellation of a certain mask</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mask_images: string or Nifti1Image or list of strings/Nifti1Images,</strong> :</p>
+<blockquote>
+<div><p>paths of mask image(s) that define(s) the common space.</p>
+</div></blockquote>
+<p><strong>nb_parcel: int,</strong> :</p>
+<blockquote>
+<div><p>number of desired parcels</p>
+</div></blockquote>
+<p><strong>threshold: float, optional,</strong> :</p>
+<blockquote>
+<div><p>level of intersection of the masks</p>
+</div></blockquote>
+<p><strong>output_image: string, optional</strong> :</p>
+<blockquote>
+<div><p>path of the output image</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>wim: Nifti1Imagine instance,  representing the resulting parcellation</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.labs.spatial_models.parcel_io.parcel_input">
+<code class="descclassname">nipy.labs.spatial_models.parcel_io.</code><code class="descname">parcel_input</code><span class="sig-paren">(</span><em>mask_images</em>, <em>learning_images</em>, <em>ths=0.5</em>, <em>fdim=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.spatial_models.parcel_io.parcel_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiating a Parcel structure from a give set of input</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mask_images: string or Nifti1Image or list of strings/Nifti1Images,</strong> :</p>
+<blockquote>
+<div><p>paths of mask image(s) that define(s) the common space.</p>
+</div></blockquote>
+<p><strong>learning_images: (nb_subject-) list of  (nb_feature-) list of strings,</strong> :</p>
+<blockquote>
+<div><p>paths of feature images used as input to the
+parcellation procedure</p>
+</div></blockquote>
+<p><strong>ths=.5: threshold to select the regions that are common across subjects.</strong> :</p>
+<blockquote>
+<div><p>if ths = .5, thethreshold is half the number of subjects</p>
+</div></blockquote>
+<p><strong>fdim: int, optional</strong> :</p>
+<blockquote>
+<div><p>if nb_feature (the dimension of the data) used in subsequent analyses
+if greater than fdim,
+a PCA is perfomed to reduce the information in the data
+Byd efault, no reduction is performed</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>domain</strong> : discrete_domain.DiscreteDomain instance</p>
+<blockquote>
+<div><p>that stores the spatial information on the parcelled domain</p>
+</div></blockquote>
+<p><strong>feature: (nb_subect-) list of arrays of shape (domain.size, fdim)</strong> :</p>
+<blockquote class="last">
+<div><p>feature information available to parcellate the data</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.labs.spatial_models.parcel_io.parcellation_based_analysis">
+<code class="descclassname">nipy.labs.spatial_models.parcel_io.</code><code class="descname">parcellation_based_analysis</code><span class="sig-paren">(</span><em>Pa</em>, <em>test_images</em>, <em>test_id='one_sample'</em>, <em>rfx_path=None</em>, <em>condition_id=''</em>, <em>swd=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.spatial_models.parcel_io.parcellation_based_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function computes parcel averages and RFX at the parcel-level</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>Pa: MultiSubjectParcellation instance</strong> :</p>
+<blockquote>
+<div><p>the description of the parcellation</p>
+</div></blockquote>
+<p><strong>test_images: (Pa.nb_subj-) list of paths</strong> :</p>
+<blockquote>
+<div><p>paths of images used in the inference procedure</p>
+</div></blockquote>
+<p><strong>test_id: string, optional,</strong> :</p>
+<blockquote>
+<div><p>if test_id==&#8217;one_sample&#8217;, the one_sample statstic is computed
+otherwise, the parcel-based signal averages are returned</p>
+</div></blockquote>
+<p><strong>rfx_path: string optional,</strong> :</p>
+<blockquote>
+<div><p>path of the resulting one-sample test image, if applicable</p>
+</div></blockquote>
+<p><strong>swd: string, optional</strong> :</p>
+<blockquote>
+<div><p>output directory used to compute output path if rfx_path is not given</p>
+</div></blockquote>
+<p><strong>condition_id: string, optional,</strong> :</p>
+<blockquote>
+<div><p>contrast/condition id  used to compute output path</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>test_data: array of shape(Pa.nb_parcel, Pa.nb_subj)</strong> :</p>
+<blockquote>
+<div><p>the parcel-level signal average if test is not &#8216;one_sample&#8217;</p>
+</div></blockquote>
+<p><strong>prfx: array of shape(Pa.nb_parcel),</strong> :</p>
+<blockquote class="last">
+<div><p>the one-sample t-value if test_id is &#8216;one_sample&#8217;</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.labs.spatial_models.parcel_io.write_parcellation_images">
+<code class="descclassname">nipy.labs.spatial_models.parcel_io.</code><code class="descname">write_parcellation_images</code><span class="sig-paren">(</span><em>Pa</em>, <em>template_path=None</em>, <em>indiv_path=None</em>, <em>subject_id=None</em>, <em>swd=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.spatial_models.parcel_io.write_parcellation_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write images that describe the spatial structure of the parcellation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>Pa</strong> : MultiSubjectParcellation instance,</p>
+<blockquote>
+<div><p>the description of the parcellation</p>
+</div></blockquote>
+<p><strong>template_path: string, optional,</strong> :</p>
+<blockquote>
+<div><p>path of the group-level parcellation image</p>
+</div></blockquote>
+<p><strong>indiv_path: list of strings, optional</strong> :</p>
+<blockquote>
+<div><p>paths of the individual parcellation images</p>
+</div></blockquote>
+<p><strong>subject_id: list of strings of length Pa.nb_subj</strong> :</p>
+<blockquote>
+<div><p>subject identifiers, used to infer the paths when not available</p>
+</div></blockquote>
+<p><strong>swd: string, optional</strong> :</p>
+<blockquote class="last">
+<div><p>output directory used to infer the paths when these are not available</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="nipy.labs.spatial_models.parcellation.html" title="labs.spatial_models.parcellation"
+             >next</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2005-2013, Neuroimaging in Python team.
+      Last updated on May 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

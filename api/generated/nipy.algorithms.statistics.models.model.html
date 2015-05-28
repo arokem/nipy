@@ -1,0 +1,653 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Neuroimaging in Python &mdash; NIPY Documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nipy.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.4.0.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="NIPY Documentation" href="../../index.html" />
+    <link rel="up" title="API" href="../index.html" />
+  <meta name="keywords" content="nipy, neuroimaging, python, neuroscience, time
+				 series">
+
+  </head>
+  <body role="document">
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+ <a href="../../index.html">
+  <img src="../../_static/reggie2.png" alt="NIPY logo"  border="0" />
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+  
+<h4> Site Navigation </h4>
+  <ul>
+    <li><a href="../../documentation.html">Documentation</a></li>
+    <li><a href="../../devel/index.html">Development</a></li>
+  </ul>
+
+<h4> NIPY Community </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://nipy.org/">Community Home</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/projects/">NIPY Projects</a></li>
+    <li><a class="reference external"
+	href="http://mail.scipy.org/mailman/listinfo/nipy-devel">Mailing List</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/license/index.html">License</a></li>
+  </ul>
+
+<h4> Github repo </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://github.com/nipy/nipy/">Nipy Github</a></li>
+  </ul>
+
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">algorithms.statistics.models.model</a><ul>
+<li><a class="reference internal" href="#module-algorithms-statistics-models-model">Module: <code class="docutils literal"><span class="pre">algorithms.statistics.models.model</span></code></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#fcontrastresults"><code class="docutils literal"><span class="pre">FContrastResults</span></code></a></li>
+<li><a class="reference internal" href="#likelihoodmodel"><code class="docutils literal"><span class="pre">LikelihoodModel</span></code></a></li>
+<li><a class="reference internal" href="#likelihoodmodelresults"><code class="docutils literal"><span class="pre">LikelihoodModelResults</span></code></a></li>
+<li><a class="reference internal" href="#model"><code class="docutils literal"><span class="pre">Model</span></code></a></li>
+<li><a class="reference internal" href="#tcontrastresults"><code class="docutils literal"><span class="pre">TContrastResults</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/api/generated/nipy.algorithms.statistics.models.model.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+
+<div id="searchbox-ml" style="display: none">
+  <h3>Search mailing list archive</h3>
+  <script type="text/javascript">
+    function mlsearch(curobj)
+    {
+    curobj.q.value="site:http://mail.scipy.org/pipermail/nipy-devel/ "+curobj.userquery.value
+    }
+  </script>
+  <form action="http://www.google.com/search" method="get" onSubmit="mlsearch(this)">
+    <input name="userquery" size="13" type="text" /> <input type="submit" value="Go" />
+    <input name="q" type="hidden" />
+  </form>
+</div>
+  
+<div id="searchbox-site" style="display: none">
+  <h3>Search this site</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="13" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox-ml').show(0);</script>
+<script type="text/javascript">$('#searchbox-site').show(0);</script>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="algorithms-statistics-models-model">
+<h1>algorithms.statistics.models.model<a class="headerlink" href="#algorithms-statistics-models-model" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-algorithms-statistics-models-model">
+<h2>Module: <code class="xref py py-mod docutils literal"><span class="pre">algorithms.statistics.models.model</span></code><a class="headerlink" href="#module-algorithms-statistics-models-model" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <code class="docutils literal"><span class="pre">nipy.algorithms.statistics.models.model</span></code>:</p>
+<p class="graphviz">
+digraph inheritancea3c478ddbb {
+rankdir=LR;
+size=&quot;8.0, 12.0&quot;;
+  &quot;models.model.FContrastResults&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;#nipy.algorithms.statistics.models.model.FContrastResults&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,tooltip=&quot;Results from an F contrast of coefficients in a parametric model.&quot;,height=0.25,shape=box,fontsize=10];
+  &quot;models.model.LikelihoodModel&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;#nipy.algorithms.statistics.models.model.LikelihoodModel&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,height=0.25,shape=box,fontsize=10];
+  &quot;models.model.Model&quot; -&gt; &quot;models.model.LikelihoodModel&quot; [arrowsize=0.5,style=&quot;setlinewidth(0.5)&quot;];
+  &quot;models.model.LikelihoodModelResults&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;#nipy.algorithms.statistics.models.model.LikelihoodModelResults&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,tooltip=&quot;Class to contain results from likelihood models&quot;,height=0.25,shape=box,fontsize=10];
+  &quot;models.model.Model&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;#nipy.algorithms.statistics.models.model.Model&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,tooltip=&quot;A (predictive) statistical model.&quot;,height=0.25,shape=box,fontsize=10];
+  &quot;models.model.TContrastResults&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;#nipy.algorithms.statistics.models.model.TContrastResults&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,tooltip=&quot;Results from a t contrast of coefficients in a parametric model.&quot;,height=0.25,shape=box,fontsize=10];
+}
+</p>
+<span class="target" id="module-nipy.algorithms.statistics.models.model"></span></div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fcontrastresults">
+<h3><a class="reference internal" href="#nipy.algorithms.statistics.models.model.FContrastResults" title="nipy.algorithms.statistics.models.model.FContrastResults"><code class="xref py py-class docutils literal"><span class="pre">FContrastResults</span></code></a><a class="headerlink" href="#fcontrastresults" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nipy.algorithms.statistics.models.model.FContrastResults">
+<em class="property">class </em><code class="descclassname">nipy.algorithms.statistics.models.model.</code><code class="descname">FContrastResults</code><span class="sig-paren">(</span><em>effect</em>, <em>covariance</em>, <em>F</em>, <em>df_num</em>, <em>df_den=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.FContrastResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Results from an F contrast of coefficients in a parametric model.</p>
+<p>The class does nothing, it is a container for the results from F contrasts,
+and returns the F-statistics when np.asarray is called.</p>
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.FContrastResults.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>effect</em>, <em>covariance</em>, <em>F</em>, <em>df_num</em>, <em>df_den=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.FContrastResults.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="likelihoodmodel">
+<h3><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModel" title="nipy.algorithms.statistics.models.model.LikelihoodModel"><code class="xref py py-class docutils literal"><span class="pre">LikelihoodModel</span></code></a><a class="headerlink" href="#likelihoodmodel" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModel">
+<em class="property">class </em><code class="descclassname">nipy.algorithms.statistics.models.model.</code><code class="descname">LikelihoodModel</code><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nipy.algorithms.statistics.models.model.Model" title="nipy.algorithms.statistics.models.model.Model"><code class="xref py py-class docutils literal"><span class="pre">nipy.algorithms.statistics.models.model.Model</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.fit" title="nipy.algorithms.statistics.models.model.LikelihoodModel.fit"><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code></a>()</td>
+<td>Fit a model to data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.information" title="nipy.algorithms.statistics.models.model.LikelihoodModel.information"><code class="xref py py-obj docutils literal"><span class="pre">information</span></code></a>(theta[,&nbsp;nuisance])</td>
+<td>Fisher information matrix</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.initialize" title="nipy.algorithms.statistics.models.model.LikelihoodModel.initialize"><code class="xref py py-obj docutils literal"><span class="pre">initialize</span></code></a>()</td>
+<td>Initialize (possibly re-initialize) a Model instance.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.logL" title="nipy.algorithms.statistics.models.model.LikelihoodModel.logL"><code class="xref py py-obj docutils literal"><span class="pre">logL</span></code></a>(theta,&nbsp;Y[,&nbsp;nuisance])</td>
+<td>Log-likelihood of model.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.predict" title="nipy.algorithms.statistics.models.model.LikelihoodModel.predict"><code class="xref py py-obj docutils literal"><span class="pre">predict</span></code></a>([design])</td>
+<td>After a model has been fit, results are (assumed to be) stored in self.results, which itself should have a predict method.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.score" title="nipy.algorithms.statistics.models.model.LikelihoodModel.score"><code class="xref py py-obj docutils literal"><span class="pre">score</span></code></a>(theta,&nbsp;Y[,&nbsp;nuisance])</td>
+<td>Gradient of logL with respect to theta.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModel.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModel.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit a model to data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModel.information">
+<code class="descname">information</code><span class="sig-paren">(</span><em>theta</em>, <em>nuisance=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fisher information matrix</p>
+<p>The inverse of the expected value of <code class="docutils literal"><span class="pre">-</span> <span class="pre">d^2</span> <span class="pre">logL</span> <span class="pre">/</span> <span class="pre">dtheta^2.</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModel.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize (possibly re-initialize) a Model instance.</p>
+<p>For instance, the design matrix of a linear model may change and some
+things must be recomputed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModel.logL">
+<code class="descname">logL</code><span class="sig-paren">(</span><em>theta</em>, <em>Y</em>, <em>nuisance=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.logL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log-likelihood of model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModel.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>design=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>After a model has been fit, results are (assumed to be) stored
+in self.results, which itself should have a predict method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModel.score">
+<code class="descname">score</code><span class="sig-paren">(</span><em>theta</em>, <em>Y</em>, <em>nuisance=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModel.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gradient of logL with respect to theta.</p>
+<p>This is the score function of the model</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="likelihoodmodelresults">
+<h3><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults" title="nipy.algorithms.statistics.models.model.LikelihoodModelResults"><code class="xref py py-class docutils literal"><span class="pre">LikelihoodModelResults</span></code></a><a class="headerlink" href="#likelihoodmodelresults" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults">
+<em class="property">class </em><code class="descclassname">nipy.algorithms.statistics.models.model.</code><code class="descname">LikelihoodModelResults</code><span class="sig-paren">(</span><em>theta</em>, <em>Y</em>, <em>model</em>, <em>cov=None</em>, <em>dispersion=1.0</em>, <em>nuisance=None</em>, <em>rank=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class to contain results from likelihood models</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.AIC" title="nipy.algorithms.statistics.models.model.LikelihoodModelResults.AIC"><code class="xref py py-obj docutils literal"><span class="pre">AIC</span></code></a>()</td>
+<td>Akaike Information Criterion</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.BIC" title="nipy.algorithms.statistics.models.model.LikelihoodModelResults.BIC"><code class="xref py py-obj docutils literal"><span class="pre">BIC</span></code></a>()</td>
+<td>Schwarz&#8217;s Bayesian Information Criterion</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.Fcontrast" title="nipy.algorithms.statistics.models.model.LikelihoodModelResults.Fcontrast"><code class="xref py py-obj docutils literal"><span class="pre">Fcontrast</span></code></a>(matrix[,&nbsp;dispersion,&nbsp;invcov])</td>
+<td>Compute an Fcontrast for a contrast matrix <cite>matrix</cite>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.Tcontrast" title="nipy.algorithms.statistics.models.model.LikelihoodModelResults.Tcontrast"><code class="xref py py-obj docutils literal"><span class="pre">Tcontrast</span></code></a>(matrix[,&nbsp;store,&nbsp;dispersion])</td>
+<td>Compute a Tcontrast for a row vector <cite>matrix</cite></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.conf_int" title="nipy.algorithms.statistics.models.model.LikelihoodModelResults.conf_int"><code class="xref py py-obj docutils literal"><span class="pre">conf_int</span></code></a>([alpha,&nbsp;cols,&nbsp;dispersion])</td>
+<td>The confidence interval of the specified theta estimates.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.logL" title="nipy.algorithms.statistics.models.model.LikelihoodModelResults.logL"><code class="xref py py-obj docutils literal"><span class="pre">logL</span></code></a>()</td>
+<td>The maximized log-likelihood</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.t" title="nipy.algorithms.statistics.models.model.LikelihoodModelResults.t"><code class="xref py py-obj docutils literal"><span class="pre">t</span></code></a>([column])</td>
+<td>Return the (Wald) t-statistic for a given parameter estimate.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.vcov" title="nipy.algorithms.statistics.models.model.LikelihoodModelResults.vcov"><code class="xref py py-obj docutils literal"><span class="pre">vcov</span></code></a>([matrix,&nbsp;column,&nbsp;dispersion,&nbsp;other])</td>
+<td>Variance/covariance matrix of linear contrast</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>theta</em>, <em>Y</em>, <em>model</em>, <em>cov=None</em>, <em>dispersion=1.0</em>, <em>nuisance=None</em>, <em>rank=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up results structure</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>theta</strong> : ndarray</p>
+<blockquote>
+<div><p>parameter estimates from estimated model</p>
+</div></blockquote>
+<p><strong>Y</strong> : ndarray</p>
+<blockquote>
+<div><p>data</p>
+</div></blockquote>
+<p><strong>model</strong> : <code class="docutils literal"><span class="pre">LikelihoodModel</span></code> instance</p>
+<blockquote>
+<div><p>model used to generate fit</p>
+</div></blockquote>
+<p><strong>cov</strong> : None or ndarray, optional</p>
+<blockquote>
+<div><p>covariance of thetas</p>
+</div></blockquote>
+<p><strong>dispersion</strong> : scalar, optional</p>
+<blockquote>
+<div><p>multiplicative factor in front of <cite>cov</cite></p>
+</div></blockquote>
+<p><strong>nuisance</strong> : None of ndarray</p>
+<blockquote>
+<div><p>parameter estimates needed to compute logL</p>
+</div></blockquote>
+<p><strong>rank</strong> : None or scalar</p>
+<blockquote class="last">
+<div><p>rank of the model.  If rank is not None, it is used for df_model
+instead of the usual counting of parameters.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The covariance of thetas is given by:</p>
+<blockquote>
+<div>dispersion * cov</div></blockquote>
+<p>For (some subset of models) <cite>dispersion</cite> will typically be the mean
+square error from the estimated model (sigma^2)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults.AIC">
+<code class="descname">AIC</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.AIC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Akaike Information Criterion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults.BIC">
+<code class="descname">BIC</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.BIC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schwarz&#8217;s Bayesian Information Criterion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults.Fcontrast">
+<code class="descname">Fcontrast</code><span class="sig-paren">(</span><em>matrix</em>, <em>dispersion=None</em>, <em>invcov=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.Fcontrast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute an Fcontrast for a contrast matrix <cite>matrix</cite>.</p>
+<p>Here, <cite>matrix</cite> M is assumed to be non-singular. More precisely</p>
+<div class="math">
+<p><img src="../../_images/math/d91a22c7cc20ec7696860d0ae6e8c868df5a6a10.png" alt="M pX pX' M'"/></p>
+</div><p>is assumed invertible. Here, <img class="math" src="../../_images/math/2742936a8f7f73f27a8a031927787f33ad1c334c.png" alt="pX"/> is the generalized inverse of
+the design matrix of the model. There can be problems in non-OLS models
+where the rank of the covariance of the noise is not full.</p>
+<p>See the contrast module to see how to specify contrasts.  In particular,
+the matrices from these contrasts will always be non-singular in the
+sense above.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>matrix</strong> : 1D array-like</p>
+<blockquote>
+<div><p>contrast matrix</p>
+</div></blockquote>
+<p><strong>dispersion</strong> : None or float, optional</p>
+<blockquote>
+<div><p>If None, use <code class="docutils literal"><span class="pre">self.dispersion</span></code></p>
+</div></blockquote>
+<p><strong>invcov</strong> : None or array, optional</p>
+<blockquote>
+<div><p>Known inverse of variance covariance matrix.
+If None, calculate this matrix.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>f_res</strong> : <code class="docutils literal"><span class="pre">FContrastResults</span></code> instance</p>
+<blockquote class="last">
+<div><p>with attributes F, df_den, df_num</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>For F contrasts, we now specify an effect and covariance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults.Tcontrast">
+<code class="descname">Tcontrast</code><span class="sig-paren">(</span><em>matrix</em>, <em>store=('t'</em>, <em>'effect'</em>, <em>'sd')</em>, <em>dispersion=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.Tcontrast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute a Tcontrast for a row vector <cite>matrix</cite></p>
+<p>To get the t-statistic for a single column, use the &#8216;t&#8217; method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>matrix</strong> : 1D array-like</p>
+<blockquote>
+<div><p>contrast matrix</p>
+</div></blockquote>
+<p><strong>store</strong> : sequence, optional</p>
+<blockquote>
+<div><p>components of t to store in results output object.  Defaults to all
+components (&#8216;t&#8217;, &#8216;effect&#8217;, &#8216;sd&#8217;).</p>
+</div></blockquote>
+<p><strong>dispersion</strong> : None or float, optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>res</strong> : <code class="docutils literal"><span class="pre">TContrastResults</span></code> object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults.conf_int">
+<code class="descname">conf_int</code><span class="sig-paren">(</span><em>alpha=0.05</em>, <em>cols=None</em>, <em>dispersion=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.conf_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>The confidence interval of the specified theta estimates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>alpha</strong> : float, optional</p>
+<blockquote>
+<div><p>The <cite>alpha</cite> level for the confidence interval.
+ie., <cite>alpha</cite> = .05 returns a 95% confidence interval.</p>
+</div></blockquote>
+<p><strong>cols</strong> : tuple, optional</p>
+<blockquote>
+<div><p><cite>cols</cite> specifies which confidence intervals to return</p>
+</div></blockquote>
+<p><strong>dispersion</strong> : None or scalar</p>
+<blockquote>
+<div><p>scale factor for the variance / covariance (see class docstring and
+<code class="docutils literal"><span class="pre">vcov</span></code> method docstring)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>cis</strong> : ndarray</p>
+<blockquote class="last">
+<div><p><cite>cis</cite> is shape <code class="docutils literal"><span class="pre">(len(cols),</span> <span class="pre">2)</span></code> where each row contains [lower,
+upper] for the given entry in <cite>cols</cite></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Confidence intervals are two-tailed.
+TODO:
+tails : string, optional</p>
+<blockquote>
+<div><cite>tails</cite> can be &#8220;two&#8221;, &#8220;upper&#8221;, or &#8220;lower&#8221;</div></blockquote>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">standard_normal</span> <span class="k">as</span> <span class="n">stan</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nipy.algorithms.statistics.models.regression</span> <span class="kn">import</span> <span class="n">OLSModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">stan</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span><span class="n">stan</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span><span class="n">stan</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span><span class="mi">1</span><span class="p">))))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.25</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">beta</span><span class="p">)</span> <span class="o">+</span> <span class="n">stan</span><span class="p">((</span><span class="mi">30</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">OLSModel</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">confidence_intervals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">conf_int</span><span class="p">(</span><span class="n">cols</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults.logL">
+<code class="descname">logL</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.logL" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximized log-likelihood</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults.t">
+<code class="descname">t</code><span class="sig-paren">(</span><em>column=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the (Wald) t-statistic for a given parameter estimate.</p>
+<p>Use Tcontrast for more complicated (Wald) t-statistics.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.LikelihoodModelResults.vcov">
+<code class="descname">vcov</code><span class="sig-paren">(</span><em>matrix=None</em>, <em>column=None</em>, <em>dispersion=None</em>, <em>other=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.LikelihoodModelResults.vcov" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variance/covariance matrix of linear contrast</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>matrix: (dim, self.theta.shape[0]) array, optional</strong> :</p>
+<blockquote>
+<div><p>numerical contrast specification, where <code class="docutils literal"><span class="pre">dim</span></code> refers to the
+&#8216;dimension&#8217; of the contrast i.e. 1 for t contrasts, 1 or more
+for F contrasts.</p>
+</div></blockquote>
+<p><strong>column: int, optional</strong> :</p>
+<blockquote>
+<div><p>alternative way of specifying contrasts (column index)</p>
+</div></blockquote>
+<p><strong>dispersion: float or (n_voxels,) array, optional</strong> :</p>
+<blockquote>
+<div><p>value(s) for the dispersion parameters</p>
+</div></blockquote>
+<p><strong>other: (dim, self.theta.shape[0]) array, optional</strong> :</p>
+<blockquote>
+<div><p>alternative contrast specification (?)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>cov: (dim, dim) or (n_voxels, dim, dim) array</strong> :</p>
+<blockquote>
+<div><p>the estimated covariance matrix/matrices</p>
+</div></blockquote>
+<p><strong>Returns the variance/covariance matrix of a linear contrast of the</strong> :</p>
+<p><strong>estimates of theta, multiplied by `dispersion` which will often be an</strong> :</p>
+<p><strong>estimate of `dispersion`, like, sigma^2.</strong> :</p>
+<p><strong>The covariance of interest is either specified as a (set of) column(s)</strong> :</p>
+<p class="last"><strong>or a matrix.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="model">
+<h3><a class="reference internal" href="#nipy.algorithms.statistics.models.model.Model" title="nipy.algorithms.statistics.models.model.Model"><code class="xref py py-class docutils literal"><span class="pre">Model</span></code></a><a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nipy.algorithms.statistics.models.model.Model">
+<em class="property">class </em><code class="descclassname">nipy.algorithms.statistics.models.model.</code><code class="descname">Model</code><a class="headerlink" href="#nipy.algorithms.statistics.models.model.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A (predictive) statistical model.</p>
+<p>The class Model itself does nothing but lays out the methods expected of any
+subclass.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.Model.fit" title="nipy.algorithms.statistics.models.model.Model.fit"><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code></a>()</td>
+<td>Fit a model to data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.Model.initialize" title="nipy.algorithms.statistics.models.model.Model.initialize"><code class="xref py py-obj docutils literal"><span class="pre">initialize</span></code></a>()</td>
+<td>Initialize (possibly re-initialize) a Model instance.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.algorithms.statistics.models.model.Model.predict" title="nipy.algorithms.statistics.models.model.Model.predict"><code class="xref py py-obj docutils literal"><span class="pre">predict</span></code></a>([design])</td>
+<td>After a model has been fit, results are (assumed to be) stored in self.results, which itself should have a predict method.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.Model.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.Model.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.Model.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.Model.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit a model to data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.Model.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.Model.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize (possibly re-initialize) a Model instance.</p>
+<p>For instance, the design matrix of a linear model may change and some
+things must be recomputed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.Model.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>design=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.Model.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>After a model has been fit, results are (assumed to be) stored
+in self.results, which itself should have a predict method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="tcontrastresults">
+<h3><a class="reference internal" href="#nipy.algorithms.statistics.models.model.TContrastResults" title="nipy.algorithms.statistics.models.model.TContrastResults"><code class="xref py py-class docutils literal"><span class="pre">TContrastResults</span></code></a><a class="headerlink" href="#tcontrastresults" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nipy.algorithms.statistics.models.model.TContrastResults">
+<em class="property">class </em><code class="descclassname">nipy.algorithms.statistics.models.model.</code><code class="descname">TContrastResults</code><span class="sig-paren">(</span><em>t</em>, <em>sd</em>, <em>effect</em>, <em>df_den=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.TContrastResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Results from a t contrast of coefficients in a parametric model.</p>
+<p>The class does nothing, it is a container for the results from T contrasts,
+and returns the T-statistics when np.asarray is called.</p>
+<dl class="method">
+<dt id="nipy.algorithms.statistics.models.model.TContrastResults.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>t</em>, <em>sd</em>, <em>effect</em>, <em>df_den=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.algorithms.statistics.models.model.TContrastResults.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2005-2013, Neuroimaging in Python team.
+      Last updated on May 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

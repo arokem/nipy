@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Neuroimaging in Python &mdash; NIPY Documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nipy.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.4.0.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="NIPY Documentation" href="../../index.html" />
+    <link rel="up" title="API" href="../index.html" />
+    <link rel="prev" title="labs.glm.benchmarks.bench_glm" href="nipy.labs.glm.benchmarks.bench_glm.html" />
+  <meta name="keywords" content="nipy, neuroimaging, python, neuroscience, time
+				 series">
+
+  </head>
+  <body role="document">
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+ <a href="../../index.html">
+  <img src="../../_static/reggie2.png" alt="NIPY logo"  border="0" />
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="nipy.labs.glm.benchmarks.bench_glm.html" title="labs.glm.benchmarks.bench_glm"
+             accesskey="P">previous</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">API</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+  
+<h4> Site Navigation </h4>
+  <ul>
+    <li><a href="../../documentation.html">Documentation</a></li>
+    <li><a href="../../devel/index.html">Development</a></li>
+  </ul>
+
+<h4> NIPY Community </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://nipy.org/">Community Home</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/projects/">NIPY Projects</a></li>
+    <li><a class="reference external"
+	href="http://mail.scipy.org/mailman/listinfo/nipy-devel">Mailing List</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/license/index.html">License</a></li>
+  </ul>
+
+<h4> Github repo </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://github.com/nipy/nipy/">Nipy Github</a></li>
+  </ul>
+
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">labs.glm.glm</a><ul>
+<li><a class="reference internal" href="#module-labs-glm-glm">Module: <code class="docutils literal"><span class="pre">labs.glm.glm</span></code></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#contrast"><code class="docutils literal"><span class="pre">contrast</span></code></a></li>
+<li><a class="reference internal" href="#glm"><code class="docutils literal"><span class="pre">glm</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="nipy.labs.glm.benchmarks.bench_glm.html"
+                        title="previous chapter">labs.glm.benchmarks.bench_glm</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/api/generated/nipy.labs.glm.glm.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+
+<div id="searchbox-ml" style="display: none">
+  <h3>Search mailing list archive</h3>
+  <script type="text/javascript">
+    function mlsearch(curobj)
+    {
+    curobj.q.value="site:http://mail.scipy.org/pipermail/nipy-devel/ "+curobj.userquery.value
+    }
+  </script>
+  <form action="http://www.google.com/search" method="get" onSubmit="mlsearch(this)">
+    <input name="userquery" size="13" type="text" /> <input type="submit" value="Go" />
+    <input name="q" type="hidden" />
+  </form>
+</div>
+  
+<div id="searchbox-site" style="display: none">
+  <h3>Search this site</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="13" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox-ml').show(0);</script>
+<script type="text/javascript">$('#searchbox-site').show(0);</script>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="labs-glm-glm">
+<h1>labs.glm.glm<a class="headerlink" href="#labs-glm-glm" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-labs-glm-glm">
+<h2>Module: <code class="xref py py-mod docutils literal"><span class="pre">labs.glm.glm</span></code><a class="headerlink" href="#module-labs-glm-glm" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <code class="docutils literal"><span class="pre">nipy.labs.glm.glm</span></code>:</p>
+<p class="graphviz">
+digraph inheritance364f398220 {
+rankdir=LR;
+size=&quot;8.0, 12.0&quot;;
+  &quot;glm.glm.contrast&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;#nipy.labs.glm.glm.contrast&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,height=0.25,shape=box,fontsize=10];
+  &quot;glm.glm.glm&quot; [style=&quot;setlinewidth(0.5)&quot;,URL=&quot;#nipy.labs.glm.glm.glm&quot;,fontname=&quot;Vera Sans, DejaVu Sans, Liberation Sans, Arial, Helvetica, sans&quot;,height=0.25,shape=box,fontsize=10];
+}
+</p>
+<span class="target" id="module-nipy.labs.glm.glm"></span></div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contrast">
+<h3><a class="reference internal" href="#nipy.labs.glm.glm.contrast" title="nipy.labs.glm.glm.contrast"><code class="xref py py-class docutils literal"><span class="pre">contrast</span></code></a><a class="headerlink" href="#contrast" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nipy.labs.glm.glm.contrast">
+<em class="property">class </em><code class="descclassname">nipy.labs.glm.glm.</code><code class="descname">contrast</code><span class="sig-paren">(</span><em>dim</em>, <em>type='t'</em>, <em>tiny=1e-50</em>, <em>dofmax=10000000000.0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.contrast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.labs.glm.glm.contrast.pvalue" title="nipy.labs.glm.glm.contrast.pvalue"><code class="xref py py-obj docutils literal"><span class="pre">pvalue</span></code></a>([baseline])</td>
+<td>Return a parametric approximation of the p-value associated</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.labs.glm.glm.contrast.stat" title="nipy.labs.glm.glm.contrast.stat"><code class="xref py py-obj docutils literal"><span class="pre">stat</span></code></a>([baseline])</td>
+<td>Return the decision statistic associated with the test of the</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.labs.glm.glm.contrast.summary" title="nipy.labs.glm.glm.contrast.summary"><code class="xref py py-obj docutils literal"><span class="pre">summary</span></code></a>()</td>
+<td>Return a dictionary containing the estimated contrast effect, the associated ReML-based estimation variance, and the estimated degrees of freedom (variance of the variance).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.labs.glm.glm.contrast.zscore" title="nipy.labs.glm.glm.contrast.zscore"><code class="xref py py-obj docutils literal"><span class="pre">zscore</span></code></a>([baseline])</td>
+<td>Return a parametric approximation of the z-score associated</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nipy.labs.glm.glm.contrast.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dim</em>, <em>type='t'</em>, <em>tiny=1e-50</em>, <em>dofmax=10000000000.0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.contrast.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>tiny is a numerical constant for computations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.labs.glm.glm.contrast.pvalue">
+<code class="descname">pvalue</code><span class="sig-paren">(</span><em>baseline=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.contrast.pvalue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a parametric approximation of the p-value associated
+with the null hypothesis: (H0) &#8216;contrast equals baseline&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.labs.glm.glm.contrast.stat">
+<code class="descname">stat</code><span class="sig-paren">(</span><em>baseline=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.contrast.stat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the decision statistic associated with the test of the
+null hypothesis: (H0) &#8216;contrast equals baseline&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.labs.glm.glm.contrast.summary">
+<code class="descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.contrast.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary containing the estimated contrast effect,
+the associated ReML-based estimation variance, and the estimated
+degrees of freedom (variance of the variance).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.labs.glm.glm.contrast.zscore">
+<code class="descname">zscore</code><span class="sig-paren">(</span><em>baseline=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.contrast.zscore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a parametric approximation of the z-score associated
+with the null hypothesis: (H0) &#8216;contrast equals baseline&#8217;</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="glm">
+<h3><a class="reference internal" href="#nipy.labs.glm.glm.glm" title="nipy.labs.glm.glm.glm"><code class="xref py py-class docutils literal"><span class="pre">glm</span></code></a><a class="headerlink" href="#glm" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nipy.labs.glm.glm.glm">
+<em class="property">class </em><code class="descclassname">nipy.labs.glm.glm.</code><code class="descname">glm</code><span class="sig-paren">(</span><em>Y=None</em>, <em>X=None</em>, <em>formula=None</em>, <em>axis=0</em>, <em>model='spherical'</em>, <em>method=None</em>, <em>niter=2</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.glm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.labs.glm.glm.glm.contrast" title="nipy.labs.glm.glm.glm.contrast"><code class="xref py py-obj docutils literal"><span class="pre">contrast</span></code></a>(c[,&nbsp;type,&nbsp;tiny,&nbsp;dofmax])</td>
+<td>Specify and estimate a constrast</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#nipy.labs.glm.glm.glm.fit" title="nipy.labs.glm.glm.glm.fit"><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code></a>(Y,&nbsp;X[,&nbsp;formula,&nbsp;axis,&nbsp;model,&nbsp;method,&nbsp;niter])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#nipy.labs.glm.glm.glm.save" title="nipy.labs.glm.glm.glm.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>(file)</td>
+<td>Save fit into a .npz file</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nipy.labs.glm.glm.glm.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>Y=None</em>, <em>X=None</em>, <em>formula=None</em>, <em>axis=0</em>, <em>model='spherical'</em>, <em>method=None</em>, <em>niter=2</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.glm.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nipy.labs.glm.glm.glm.contrast">
+<code class="descname">contrast</code><span class="sig-paren">(</span><em>c</em>, <em>type='t'</em>, <em>tiny=1e-50</em>, <em>dofmax=10000000000.0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.glm.contrast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify and estimate a constrast</p>
+<p>c must be a numpy.ndarray (or anything that numpy.asarray
+can cast to a ndarray).
+For a F contrast, c must be q x p
+where q is the number of contrast vectors and
+p is the total number of regressors.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nipy.labs.glm.glm.glm.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>Y</em>, <em>X</em>, <em>formula=None</em>, <em>axis=0</em>, <em>model='spherical'</em>, <em>method=None</em>, <em>niter=2</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.glm.fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nipy.labs.glm.glm.glm.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.glm.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save fit into a .npz file</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="nipy.labs.glm.glm.load">
+<code class="descclassname">nipy.labs.glm.glm.</code><code class="descname">load</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a fitted glm</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nipy.labs.glm.glm.ols">
+<code class="descclassname">nipy.labs.glm.glm.</code><code class="descname">ols</code><span class="sig-paren">(</span><em>Y</em>, <em>X</em>, <em>axis=0</em><span class="sig-paren">)</span><a class="headerlink" href="#nipy.labs.glm.glm.ols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Essentially, compute pinv(X)*Y</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="nipy.labs.glm.benchmarks.bench_glm.html" title="labs.glm.benchmarks.bench_glm"
+             >previous</a> |</li>
+  <li><a href="../../index.html">NIPY home</a> |&nbsp;</li>
+
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >NIPY documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" >API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2005-2013, Neuroimaging in Python team.
+      Last updated on May 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

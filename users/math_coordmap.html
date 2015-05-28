@@ -1,0 +1,518 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Neuroimaging in Python &mdash; NIPY Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nipy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.4.0.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NIPY Documentation" href="../index.html" />
+  <meta name="keywords" content="nipy, neuroimaging, python, neuroscience, time
+				 series">
+
+  </head>
+  <body role="document">
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+ <a href="../index.html">
+  <img src="../_static/reggie2.png" alt="NIPY logo"  border="0" />
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+  <li><a href="../index.html">NIPY home</a> |&nbsp;</li>
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+  
+<h4> Site Navigation </h4>
+  <ul>
+    <li><a href="../documentation.html">Documentation</a></li>
+    <li><a href="../devel/index.html">Development</a></li>
+  </ul>
+
+<h4> NIPY Community </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://nipy.org/">Community Home</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/projects/">NIPY Projects</a></li>
+    <li><a class="reference external"
+	href="http://mail.scipy.org/mailman/listinfo/nipy-devel">Mailing List</a></li>
+    <li><a class="reference external"
+	href="http://nipy.org/software/license/index.html">License</a></li>
+  </ul>
+
+<h4> Github repo </h4>
+  <ul class="simple">
+    <li><a class="reference external"
+	href="http://github.com/nipy/nipy/">Nipy Github</a></li>
+  </ul>
+
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Mathematical formulation of the Coordinate Map</a><ul>
+<li><a class="reference internal" href="#manipulating-mappings-coordinate-systems-and-coordinate-maps">Manipulating mappings, coordinate systems and coordinate maps</a><ul>
+<li><a class="reference internal" href="#coordinate-systems">Coordinate systems</a></li>
+<li><a class="reference internal" href="#mappings">Mappings</a></li>
+<li><a class="reference internal" href="#affine-mappings">Affine mappings</a></li>
+<li><a class="reference internal" href="#dimensional-affine-mappings">3-dimensional affine mappings</a></li>
+<li><a class="reference internal" href="#coordinate-maps">Coordinate maps</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/users/math_coordmap.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+
+<div id="searchbox-ml" style="display: none">
+  <h3>Search mailing list archive</h3>
+  <script type="text/javascript">
+    function mlsearch(curobj)
+    {
+    curobj.q.value="site:http://mail.scipy.org/pipermail/nipy-devel/ "+curobj.userquery.value
+    }
+  </script>
+  <form action="http://www.google.com/search" method="get" onSubmit="mlsearch(this)">
+    <input name="userquery" size="13" type="text" /> <input type="submit" value="Go" />
+    <input name="q" type="hidden" />
+  </form>
+</div>
+  
+<div id="searchbox-site" style="display: none">
+  <h3>Search this site</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="13" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox-ml').show(0);</script>
+<script type="text/javascript">$('#searchbox-site').show(0);</script>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="mathematical-formulation-of-the-coordinate-map">
+<span id="math-coordmap"></span><h1>Mathematical formulation of the Coordinate Map<a class="headerlink" href="#mathematical-formulation-of-the-coordinate-map" title="Permalink to this headline">¶</a></h1>
+<p>Using the <em>CoordinateMap</em> can be a little hard to get used to.  For some users,
+a mathematical description, free of any python syntax and code design and
+snippets may be helpful. After following through this description, the code
+design and usage may be clearer.</p>
+<p>We return to the normalization example in <a class="reference internal" href="coordinate_map.html#normalize-coordmap"><span>Use of the Coordinate Map for spatial normalization</span></a> and try to
+write it out mathematically.  Conceptually, to do normalization, we need to be
+able to answer each of these three questions:</p>
+<ol class="arabic simple">
+<li><em>Voxel-to-world (subject)</em> Given the subjects&#8217; anatomical image read off the
+scanner: which physical location, expressed in <img class="math" src="../_images/math/2583c9b7d3a07d5f4978270ea5902862b04f7bf9.png" alt="(x_s,y_s,z_s)"/>
+coordinates (<img class="math" src="../_images/math/6859317dd1b439cef34131bcd4bafee8393444e0.png" alt="s"/> for subject), corresponds to the voxel of data
+<img class="math" src="../_images/math/75e2ff261a05eae2460ae106d9a52fe6dece373d.png" alt="(i_s,j_s,k_s)"/>?  This question is answered by <em>subject_im.coordmap</em>.
+The actual function that computes this, i.e that takes 3 floats and returns 3
+floats, is <em>subject_im.coordmap.mapping</em>.</li>
+<li><em>World-to-world (subject to Tailarach)</em> Given a location
+<img class="math" src="../_images/math/2583c9b7d3a07d5f4978270ea5902862b04f7bf9.png" alt="(x_s,y_s,z_s)"/> in an anatomical image of the subject, where does it
+lie in the Tailarach coordinates <img class="math" src="../_images/math/580f564f69155ff21062cfbb1bc975488713904e.png" alt="(x_a,y_a, z_a)"/>? This is answered by
+the matrix <em>T</em> and knowing that <em>T</em> maps a point in the subject&#8217;s world to
+Tailarach world. Hence, this question is answered by
+<em>subject_world_to_tailarach_world</em> above.</li>
+<li><em>Voxel-to-world (Tailarach)</em> Since we want to produce a resampled Image that
+has the same shape and coordinate information as <em>atlas_im</em>, we need to know
+what location in Tailarach space, <img class="math" src="../_images/math/4865a08797dfd7555eb60325a39dafcb62331fb9.png" alt="(x_a,y_a,z_a)"/> (<img class="math" src="../_images/math/7dd2a5ea01fbd72ad2a58dd1f3d6ecbfde6208a1.png" alt="a"/> for atlas)
+corresponds to the voxel <img class="math" src="../_images/math/c125e91505df445560e87868835d0e06ed98c9d2.png" alt="(i_a,j_a,k_a)"/>. This question is answered by
+<em>tailarach_cmap</em>.</li>
+</ol>
+<p>Each of these three questions are answered by, in code, what we called a class
+called <em>CoordinateMap</em>.  Mathematically, let&#8217;s define a <em>mapping</em> as a tuple
+<img class="math" src="../_images/math/9063425681f97b138ae9eff30c6ab37190bf75ac.png" alt="(D,R,f)"/> where <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> is the <em>domain</em>, <img class="math" src="../_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/> is the <em>range</em> and
+<img class="math" src="../_images/math/5a9a389788147f2249e797df85e91ac05c1c73fa.png" alt="f:D\rightarrow R"/> is a function. It may seem redundant to pair
+<img class="math" src="../_images/math/02a52e70269df04e49e117a6c8d81e1128249b68.png" alt="(D,R)"/> with <img class="math" src="../_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/> because a function must surely know its domain and
+hence, implicitly, its range.  However, we will see that when it comes time to
+implement the notion of <em>mapping</em>, the tuple we do use to construct
+<em>CoordinateMap</em> is almost, but not quite <img class="math" src="../_images/math/9063425681f97b138ae9eff30c6ab37190bf75ac.png" alt="(D,R,f)"/> and, in the tuple we
+use, <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> and <img class="math" src="../_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/> are not reduntant.</p>
+<p>Since these mappings are going to be used and called with modules like
+<code class="xref py py-mod docutils literal"><span class="pre">numpy</span></code>, we should restrict our definition a little bit. We assume the
+following:</p>
+<ol class="arabic simple">
+<li><img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> is isomorphic to one of <img class="math" src="../_images/math/f2c05f01872bb313965ebb870023592c70d4a132.png" alt="\mathbb{Z}^n, \mathbb{R}^n,
+\mathbb{C}^n"/> for some <img class="math" src="../_images/math/413f8a8e40062a9090d9d50b88bc7b551b314c26.png" alt="n"/>. This isomorphism is determined by a basis
+<img class="math" src="../_images/math/89ecc82a9bcdb8901257208df9e828d62fa83cf6.png" alt="[u_1,\dots,u_n]"/> of <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> which maps <img class="math" src="../_images/math/4301e96aa92ce06a03e5d43e1cc0f6b52555b706.png" alt="u_i"/> to <img class="math" src="../_images/math/aabfa84180467cf04c692b4533d5204532aac20b.png" alt="e_i"/>
+the canonical i-th coordinate vector of whichever of <img class="math" src="../_images/math/849407e7153ec5ea06c7eb3e40229ba0dd073a43.png" alt="\mathbb{Z}^n,
+\mathbb{R}^n, \mathbb{C}^n"/>. This isomorphism is denoted by <img class="math" src="../_images/math/4950a397294700a1c131f4e32282a7d5e5957cb9.png" alt="I_D"/>.
+Strictly speaking, if <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> is isomorphic to <img class="math" src="../_images/math/0ed81300b9aa865ba76cfce4251c3edd478e8e77.png" alt="\mathbb{Z}^n"/> then
+the term basis is possibly misleading because <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> because it is not a
+vector space, but it is a group so we might call the basis a set of
+generators instead. In any case, the implication is that whatever properties
+the appropriate <img class="math" src="../_images/math/0742bce27005a0d2f7c3992c120bfdc28e7f2508.png" alt="\mathbb{Z},\mathbb{R},\mathbb{C}"/>, so <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> (and
+<img class="math" src="../_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/>) has as well.</li>
+<li><img class="math" src="../_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/> is similarly isomorphic to one of  <img class="math" src="../_images/math/749a31d16ec9aba5326989940ea8f10c303a3192.png" alt="\mathbb{Z}^m,
+\mathbb{R}^m, \mathbb{C}^m"/> for some <img class="math" src="../_images/math/c4bb40dd65eae6c11b325989b14e0b8d35e4e3ef.png" alt="m"/> with isomorphism <img class="math" src="../_images/math/566780ccd00389a7528ef7a106132df7f644e441.png" alt="I_R"/>
+and basis <img class="math" src="../_images/math/06f2b4a9300126b2cb242292f2cc323e5d00b8c4.png" alt="[v_1,\dots,v_m]"/>.</li>
+</ol>
+<p>Above, and throughout, the brackets &#8220;[&#8221;,&#8221;]&#8221; represent things interpretable as
+python lists, i.e. sequences.</p>
+<p>These isomorphisms are just fancy ways of saying that the point
+<img class="math" src="../_images/math/5d27922a97e45c757b647ddfc99a1e08c6e82e27.png" alt="x=3,y=4,z=5"/> is represented by the 3 real numbers (3,4,5). In this case
+the basis is <img class="math" src="../_images/math/22751d8289150f74bf17183d775c1a02867d045d.png" alt="[x,y,z]"/> and for any <img class="math" src="../_images/math/d67a6ce0ece3ec8def92391f27ed353b3595f836.png" alt="a,b,c \in \mathbb{R}"/></p>
+<div class="math">
+<p><img src="../_images/math/0cc4d166d8731c1a6d6e3310bb17d8ddf6ef85b4.png" alt="I_D(a\cdot x + b \cdot y + c \cdot z) = a \cdot e_1 + b \cdot e_2 + c \cdot e_3"/></p>
+</div><p>We might call the pairs <img class="math" src="../_images/math/9a4c6026061ad1aa6475a42aff76d5cdff2d56ff.png" alt="([u_1,...,u_n], I_D), ([v_1,...,v_m], I_R)"/>
+<em>coordinate systems</em>.  Actually, the bases in effect determine the maps
+<img class="math" src="../_images/math/e866478c6ce41f8ce180b4444b0ce654be1d30bd.png" alt="I_D,I_R"/> as long as we know which of
+<img class="math" src="../_images/math/0742bce27005a0d2f7c3992c120bfdc28e7f2508.png" alt="\mathbb{Z},\mathbb{R},\mathbb{C}"/> we are talking about so in effect,
+<img class="math" src="../_images/math/fdad2c0101457463201d081cedeab27e9ae2c836.png" alt="([u_1,...,u_n], \mathbb{R})"/> could be called a <em>coordinate system</em>.  This
+is how it is implemented in the code with <img class="math" src="../_images/math/fe4ea5b5a0b8ddae908b022a9b98ada904ac9ac5.png" alt="[u_1, \dots, u_n]"/> being
+replaced by a list of strings naming the basis vectors and <img class="math" src="../_images/math/858dca350c68cd6e22d70cf4324efbc875002ef2.png" alt="\mathbb{R}"/>
+replaced by a builtin <code class="xref py py-func docutils literal"><span class="pre">numpy.dtype()</span></code>.</p>
+<p>In our normalization example, we therefore have 3 mappings:</p>
+<ol class="arabic">
+<li><p class="first"><em>Voxel-to-world (subject)</em> In standard notation for functions, we can write</p>
+<div class="math">
+<p><img src="../_images/math/fa6f54efabcc5e356bd087407e42f6da17c6ec8e.png" alt="(i_s,j_s,k_s) \overset{f}{\mapsto} (x_s,y_s,z_s)."/></p>
+</div><p>The domain is <img class="math" src="../_images/math/d39160c4e9ee9ac4b46df374029acb014effa550.png" alt="D=[i_s,j_s,k_s]"/>, the range is <img class="math" src="../_images/math/5df0210bdb7c62fd710cf29b776196b7bf3955c4.png" alt="R=[x_s,y_s,z_s]"/>
+and the function is <img class="math" src="../_images/math/0eab10fb7cad91a8b6e56f06fa1355085b486156.png" alt="f:D \rightarrow R"/>.</p>
+</li>
+<li><p class="first"><em>World-to-world (subject to Tailarach)</em> Again, we can write</p>
+<div class="math">
+<p><img src="../_images/math/797fb670f01e6b20bc0c3e77a00d7da6beb2504d.png" alt="(x_s,y_s,z_s) \overset{g}{\mapsto} (x_a,y_a,z_a)"/></p>
+</div><p>The domain is <img class="math" src="../_images/math/770da6f36a5bdb188851894c217f6a9456abb25c.png" alt="D=[x_s,y_s,z_s]"/>, the range is <img class="math" src="../_images/math/baa1f2a3a1b7dd3762c4094a280321a3d901fb01.png" alt="R=[x_a,y_a,z_a]"/>
+and the function is <img class="math" src="../_images/math/35861a2b744ee0e2af9ac2ec360bc85a3d12ad04.png" alt="g:D \rightarrow R"/>.</p>
+</li>
+<li><p class="first"><em>Voxel-to-world (Tailarach)</em> Again, we can write</p>
+<div class="math">
+<p><img src="../_images/math/5e848dfac82a7c60c6b980972535d3baa6cc100f.png" alt="(i_a,j_a,k_a) \overset{h}{\mapsto} (x_a,y_a, z_a)."/></p>
+</div><p>The domain is <img class="math" src="../_images/math/d65f79369f4aecd12748b16f72bcc09cfdd382cf.png" alt="D=[i_a,j_a,k_a]"/>, the range is <img class="math" src="../_images/math/baa1f2a3a1b7dd3762c4094a280321a3d901fb01.png" alt="R=[x_a,y_a,z_a]"/>
+and the function is <img class="math" src="../_images/math/d5aecbab76a0af9798166a911ed20156c0a72339.png" alt="h:D \rightarrow R"/>.</p>
+</li>
+</ol>
+<p>Note that each of the functions <img class="math" src="../_images/math/9eb6cc2a2325f0cbe9330508a157c042a7359fdf.png" alt="f,g,h"/> can be, when we know the necessary
+isomorphisms, thought of as functions from <img class="math" src="../_images/math/c5c2e59778e48347320e2fd1db4fdf42eebaa35d.png" alt="\mathbb{R}^3"/> to itself. In
+fact, that is what we are doing when we write</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../_images/math/0e8a3416bec86539bdd39a5c52be0180672ae235.png" alt="(i_a,j_a,k_a) \overset{h}{\mapsto} (x_a,y_a, z_a)"/></p>
+</div></div></blockquote>
+<p>as a function that takes 3 numbers and gives 3 numbers.</p>
+<p>Formally, these functions that take 3 numbers and return 3 numbers can be
+written as <img class="math" src="../_images/math/0b4077c532ec8dd89f94277ca21c1a8eb8a0badb.png" alt="\tilde{f}=I_R \circ f \circ I_D^{-1}"/>.  When this is
+implemented in code, it is actually the functions <img class="math" src="../_images/math/a8c014bd5076a4a15fec3f3a53cb1242b25ffe00.png" alt="\tilde{f}, \tilde{g},
+\tilde{h}"/> we specify, rather then <img class="math" src="../_images/math/9eb6cc2a2325f0cbe9330508a157c042a7359fdf.png" alt="f,g,h"/>. The functions
+<img class="math" src="../_images/math/0abca28f4648496b73bc1b9c2d1bbd03d836926f.png" alt="\tilde{f}, \tilde{g}, \tilde{h}"/>  have domains and ranges that are just
+<img class="math" src="../_images/math/c5c2e59778e48347320e2fd1db4fdf42eebaa35d.png" alt="\mathbb{R}^3"/>.  We therefore call a <em>coordinate map</em>  a tuple</p>
+<div class="math">
+<p><img src="../_images/math/64717a2ee98367a346909071cb26ee21c6914aba.png" alt="((u_D, \mathbb{R}), (u_R, \mathbb{R}), I_R \circ f \circ I_D^{-1})"/></p>
+</div><p>where <img class="math" src="../_images/math/729a4969312beeececa415952bcff811b451538e.png" alt="u_D, u_R"/> are bases for <img class="math" src="../_images/math/551e1adcf37820f3265119c40f528409de2e7623.png" alt="D,R"/>, respectively.  It is this
+object that is implemented in code. There is a simple relationship between
+<em>mappings</em> and <em>coordinate maps</em></p>
+<div class="math">
+<p><img src="../_images/math/435f12c7fc7270a945a5eb185233f325b0e5d449.png" alt="((u_D, \mathbb{R}), (u_R, \mathbb{R}), \tilde{f}) \leftrightarrow (D, R, f=I_R^{-1} \circ \tilde{f} \circ I_D)"/></p>
+</div><p>Because <img class="math" src="../_images/math/0abca28f4648496b73bc1b9c2d1bbd03d836926f.png" alt="\tilde{f}, \tilde{g}, \tilde{h}"/> are just functions from
+<img class="math" src="../_images/math/c5c2e59778e48347320e2fd1db4fdf42eebaa35d.png" alt="\mathbb{R}^3"/> to itself, they can all be composed with one another. But,
+from our description of the functions above, we know that only certain
+compositions make sense and others do not, such as <img class="math" src="../_images/math/03a08f9a1e1666489446af6a27c89b17f3495d8d.png" alt="g \circ h"/>.
+Compositions that do make sense include</p>
+<ol class="arabic simple">
+<li><img class="math" src="../_images/math/ccf53d39aa1a2b86a5a56a2c9761f93ec6f226cd.png" alt="h^{-1} \circ g"/> which <img class="math" src="../_images/math/b1d3d2134daeab07de62be50133fc37fc40be7ff.png" alt="(i_a,j_a, k_a)"/> voxel corresponds to the
+point <img class="math" src="../_images/math/2583c9b7d3a07d5f4978270ea5902862b04f7bf9.png" alt="(x_s,y_s,z_s)"/>?</li>
+<li><img class="math" src="../_images/math/f46d38cdb02c08059020dfe900402527549ae49f.png" alt="g \circ f"/> which <img class="math" src="../_images/math/4865a08797dfd7555eb60325a39dafcb62331fb9.png" alt="(x_a,y_a,z_a)"/> corresponds to the voxel
+<img class="math" src="../_images/math/cac8180bcf0c7e0b496472f80d50633cb01468be.png" alt="(i,j,k)"/>?</li>
+</ol>
+<p>The composition that is used in the normalization example is <img class="math" src="../_images/math/2f0c6a380448df750f2c44e180905e87d75a33cb.png" alt="w = f^{-1}
+\circ g^{-1} \circ h"/> which is a function</p>
+<div class="math">
+<p><img src="../_images/math/d032104739951e42da370b7ee95052c6e0a2b5e0.png" alt="(i_a, j_a, k_a) \overset{w}{\mapsto} (i_s, j_s, k_s)"/></p>
+</div><p>This function, or more correctly its representation <img class="math" src="../_images/math/81ec2cb0ebf9d163b3f60866fc9b5047b176cf9b.png" alt="\tilde{w}"/> that takes
+3 floats to 3 floats, is passed directly to
+<code class="xref py py-func docutils literal"><span class="pre">scipy.ndimage.map_coordinates()</span></code>.</p>
+<div class="section" id="manipulating-mappings-coordinate-systems-and-coordinate-maps">
+<h2>Manipulating mappings, coordinate systems and coordinate maps<a class="headerlink" href="#manipulating-mappings-coordinate-systems-and-coordinate-maps" title="Permalink to this headline">¶</a></h2>
+<p>In order to solve our normalization problem, we will definitely need to compose
+functions. We may want to carry out other formal operations as well. Before
+describing operations on mappings, we describe the operations you might want to
+consider on coordinate systems.</p>
+<div class="section" id="coordinate-systems">
+<h3>Coordinate systems<a class="headerlink" href="#coordinate-systems" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first"><em>Reorder</em>: This is just a reordering of the basis, i.e.
+<img class="math" src="../_images/math/ca91fe7b253f3c513db79ad03c55732b409d58d6.png" alt="([u_1,u_2,u_3], \mathbb{R}) \mapsto ([u_2,u_3,u_1], \mathbb{R})"/></p>
+</li>
+<li><p class="first"><em>Product</em>: Topological product of the coordinate systems (with a small
+twist). Given two coordinate systems <img class="math" src="../_images/math/8a217da7c34907bc26d9004941d30d7b63712748.png" alt="([u_1,u_2,u_3], \mathbb{R}),
+([v_1, v_2], \mathbb{Z})"/> the product is represented as</p>
+<div class="math">
+<p><img src="../_images/math/b4f57353e6d3175a5703a9487a6bae7b50e078dc.png" alt="([u_1,u_2,u_3], \mathbb{R}) \times ([v_1, v_2], \mathbb{Z})  \mapsto ([u_1,u_2,u_3,v_1,v_2], \mathbb{R})`."/></p>
+</div><p>Note that the resulting coordinate system is real valued whereas one of the
+input coordinate systems was integer valued. We can always embed
+<img class="math" src="../_images/math/5fdff137bc42a8949aa1b49bbb9418c4bd6f4230.png" alt="\mathbb{Z}"/> into <img class="math" src="../_images/math/858dca350c68cd6e22d70cf4324efbc875002ef2.png" alt="\mathbb{R}"/>.  If one of them is complex
+valued, the resulting coordinate system is complex valued. In the code, this
+is handled by attempting to find a safe builtin numpy.dtype for the two (or
+more) given coordinate systems.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="mappings">
+<h3>Mappings<a class="headerlink" href="#mappings" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first"><em>Inverse</em>: Given a mapping <img class="math" src="../_images/math/5f53d089c6000109a8fa6901e3addfb49d5645c9.png" alt="M=(D,R,f)"/> if the function <img class="math" src="../_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/> is
+invertible, this is just the obvious <img class="math" src="../_images/math/ebebd4363aa33654e07a7ace78cc3ce2b6d7bb1a.png" alt="M^{-1}=(R, D, f^{-1})"/>.</p>
+</li>
+<li><p class="first"><em>Composition</em>: Given two mappings, <img class="math" src="../_images/math/293b0378320c92bd5650566437a6fbbba619aafd.png" alt="M_f=(D_f, R_f, f)"/> and
+<img class="math" src="../_images/math/fc1b48c3ec9cd1ca640885dc7211a22c24f82145.png" alt="M_g=(D_g, R_g, g)"/> if <img class="math" src="../_images/math/213a0dc269c99a692c8a6ae9f134c93793f22dd0.png" alt="D_f == R_g"/> then the composition is well
+defined and the composition of the mappings <img class="math" src="../_images/math/37263a98b559376224eccf4d2f8045078b8429d3.png" alt="[M_f,M_g]"/> is just
+<img class="math" src="../_images/math/4e2a3259fe55601bbffff3cb14ebe60a3918ef19.png" alt="(D_g, R_f, f \circ g)"/>.</p>
+</li>
+<li><p class="first"><em>Reorder domain / range</em>: Given a mapping <img class="math" src="../_images/math/891c867c22ca6611566b09cdd43195bffad40574.png" alt="M=(D=[i,j,k], R=[x,y,z], f)"/>
+you might want to specify that we&#8217;ve changed the domain by changing the
+ordering of its basis to <img class="math" src="../_images/math/891917e3ce8a44006b2a4f585f6b299019c08fc5.png" alt="[k,i,j]"/>. Call the new domain <img class="math" src="../_images/math/f4734b1cfcdd822ddf1b29855bb72650aef84fbd.png" alt="D'"/>.
+This is represented by the composition of the mappings <img class="math" src="../_images/math/ffdece67974ce2a3656fb13533fd6e4ad9b3362a.png" alt="[M, O]"/> where
+<img class="math" src="../_images/math/aab9f6224737f9f5c7fd205b98661f55061eca3f.png" alt="O=(D', D, I_D^{-1} \circ f_O \circ I_{D'})"/> and for  <img class="math" src="../_images/math/048794124b0ded88b3cbadae4a42823e57ba416d.png" alt="a,b,c \in
+\mathbb{R}"/>:</p>
+<div class="math">
+<p><img src="../_images/math/ddda9c313fe12f52fa72127d03db197553122b17.png" alt="f_O(a,b,c) = (b,c,a)."/></p>
+</div></li>
+<li><p class="first"><em>Linearize</em>: Possibly less used, since we know that <img class="math" src="../_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/> must map one of
+<img class="math" src="../_images/math/3e99377284bb4cc8955e5ee7abd089aad1957e15.png" alt="\mathbb{Z}^n, \mathbb{R}^n, \mathbb{C}^n"/> to one of
+<img class="math" src="../_images/math/3750a22e91f3360b4943db78023af15003afe328.png" alt="\mathbb{Z}^m, \mathbb{R}^m, \mathbb{C}^m"/>, we might be able
+differentiate it at a point <img class="math" src="../_images/math/5b04dbe6609d53a2cf4d8a3db342172c741bedfa.png" alt="p \in D"/>, yielding its 1st order Taylor
+approximation</p>
+<div class="math">
+<p><img src="../_images/math/70feba969611e399954bfe56791acdacf3f594ee.png" alt="f_p(d) = f(d) + Df_p(d-p)"/></p>
+</div><p>which is  an affine  function, thus
+creating an affine mapping <img class="math" src="../_images/math/d43245f6bdd70ba13759df951d43ea39e13c07b1.png" alt="(D, R, f_p)"/>. Affine functions
+are discussed in more detail below.</p>
+</li>
+<li><p class="first"><em>Product</em>: Given two mappings <img class="math" src="../_images/math/4011daee4d632f48afe83167f7b9fb5793c6a16e.png" alt="M_1=(D_1,R_1,f_1), M_2=(D_2, R_2, f_2)"/>
+we define their product as the mapping <img class="math" src="../_images/math/872df7094942fe16a4087c10d74175031f799116.png" alt="(D_1 + D_2, R_1 + R_2, f_1
+\otimes f_2)"/> where</p>
+<div class="math">
+<p><img src="../_images/math/5546ccf1e574cf22d741934b352c05ffcca2f702.png" alt="(f_1 \otimes f_2)(d_1, d_2) = (f_1(d_1), f_2(d_2))."/></p>
+</div><p>Above, we have taken the liberty of expressing the product of the coordinate
+systems, say, <img class="math" src="../_images/math/c10e1ec6b8fd661a15e6daad9b5e88cec3891168.png" alt="D_1=([u_1, \dots, u_n], \mathbb{R}), D_2=([v_1, \dots,
+v_m], \mathbb{C})"/> as a python addition of lists.</p>
+<p>The name <em>product</em> for this operation is not necessarily canonical. If the
+two coordinate systems are  vector spaces and the function is linear, then we
+might call this map the <em>direct sum</em> because its domain are direct sums of
+vector spaces. The term <em>product</em> here refers to the fact that the domain and
+range are true topological products.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="affine-mappings">
+<h3>Affine mappings<a class="headerlink" href="#affine-mappings" title="Permalink to this headline">¶</a></h3>
+<p>An <em>affine mapping</em> is one in which the function <img class="math" src="../_images/math/0eab10fb7cad91a8b6e56f06fa1355085b486156.png" alt="f:D \rightarrow R"/> is an
+affine function. That is, it can be written as <cite>f(d) = Ad + b</cite> for <img class="math" src="../_images/math/fcc8790be82d38dd591bfa6b9e9981475bafb0e6.png" alt="d \in
+D"/> for some <img class="math" src="../_images/math/ba7504d38187e1f3787b1429f7f1b5098db63e95.png" alt="n_R \times n_D"/> matrix <img class="math" src="../_images/math/0acafa529182e79b4f56165ec677554fba7fcf98.png" alt="A"/> with entries that are in one
+of <img class="math" src="../_images/math/e3d1957fae2caec66a6abade0a7fde6f5af6c155.png" alt="\mathbb{Z}, \mathbb{R}, \mathbb{C}"/>.</p>
+<p>Strictly speaking, this is a little abuse of notation because <img class="math" src="../_images/math/425d86ba2f2979d75b7535c2bcf92c33ed6b285a.png" alt="d"/> is a
+point in <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> not a tuple of real (or integer or complex) numbers. The
+matrix <img class="math" src="../_images/math/0acafa529182e79b4f56165ec677554fba7fcf98.png" alt="A"/> represents a linear transformation from <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> to <img class="math" src="../_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/>
+in a particular choice of bases for <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> and <img class="math" src="../_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/>.</p>
+<p>Let us revisit some of the operations on a mapping as applied to <em>affine
+mappings</em> which we write as a tuple <img class="math" src="../_images/math/ab6f7b547579e8b787933a63a408149ed1ae16ad.png" alt="M=(D, R, T)"/> with <img class="math" src="../_images/math/6d42c88506b8da39a2a23653aecbfb7c29728063.png" alt="T"/> the
+representation of the <img class="math" src="../_images/math/4684191c0f3c4178515bc718ec635d462764ef26.png" alt="(A,b)"/> in homogeneous coordinates.</p>
+<ol class="arabic">
+<li><p class="first"><em>Inverse</em>: If <img class="math" src="../_images/math/6d42c88506b8da39a2a23653aecbfb7c29728063.png" alt="T"/> is invertible, this is just the tuple
+<img class="math" src="../_images/math/4a0a6d3377719604a208f1c4ebe29c97246f45f3.png" alt="M^{-1}=(R, D, T^{-1})"/>.</p>
+</li>
+<li><p class="first"><em>Composition</em>: The composition of two affine mappings <img class="math" src="../_images/math/8bba71646225f5f607ebbe1e2457e59b0483148f.png" alt="[(D_2, R_2,
+T_2), (D_1,R_1,T_1)]"/> is defined whenever <img class="math" src="../_images/math/cda2737ee6061c805c1ad7315de1366ce084b54c.png" alt="R_1==D_2"/> and is the tuple
+<img class="math" src="../_images/math/b3d890b6d372fcfa2a371347dd17c617fbb3d1bc.png" alt="(D_1, R_2, T_2 T_1)"/>.</p>
+</li>
+<li><p class="first"><em>Reorder domain</em>: A reordering of the domain of an affine mapping
+<img class="math" src="../_images/math/ab6f7b547579e8b787933a63a408149ed1ae16ad.png" alt="M=(D, R, T)"/> can be represented by a <img class="math" src="../_images/math/f4f6c3eb24134b23806f631fb7936a6e0b7e522a.png" alt="(n_D+1) \times (n_D+1)"/>
+permutation matrix <img class="math" src="../_images/math/f48b617185733d8dd6712643f1ab17c736661a06.png" alt="P"/> (in which the last coordinate is unchanged &#8211;
+remember we are in homogeneous coordinates). Hence a reordering of <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/>
+to <img class="math" src="../_images/math/f4734b1cfcdd822ddf1b29855bb72650aef84fbd.png" alt="D'"/> can be represented as <img class="math" src="../_images/math/b94d074c2def5ba125a465abb4fa0c9963b3b061.png" alt="(D', R, TP)"/>. Alternatively, it is
+the composition of the affine mappings <img class="math" src="../_images/math/7ca93967bcd850aa48d3bd120463e74d9b37b59b.png" alt="[M,(\tilde{D}, D, P)]"/>.</p>
+</li>
+<li><p class="first"><em>Reorder range</em>:  A reordering of the range can  be represented by a
+<img class="math" src="../_images/math/196f4e2ed630621794a22b5fae77b24ffa3e138c.png" alt="(n_R+1) \times (n_R+1)"/> permutation matrix <img class="math" src="../_images/math/f5b1364c531198199085584c7e25334e9666080c.png" alt="\tilde{P}"/>.  Hence a
+reordering of <img class="math" src="../_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/> to <img class="math" src="../_images/math/4acbf9c8f36077d63d58079076bf7912e4ce992c.png" alt="R'"/> can be represented as <img class="math" src="../_images/math/b286d3c64e41b250e734100080e36017fce39a7d.png" alt="(D,
+\tilde{R}, \tilde{P}T)"/>. Alternatively, it is the composition of the affine
+mappings <img class="math" src="../_images/math/70720d3ae61e47d6d35d61a5b7a5803cb6c70f0c.png" alt="[(R, \tilde{R}, \tilde{P}), M]"/>.</p>
+</li>
+<li><p class="first"><em>Linearize</em>: Because the mapping <img class="math" src="../_images/math/7632bcce71aad166e67323d2f8e530dc50cd9c47.png" alt="M=(D,R,T)"/> is already affine, this
+leaves it unchanged.</p>
+</li>
+<li><p class="first"><em>Product</em>: Given two affine mappings <img class="math" src="../_images/math/4e4e92050a08b7e0f9087f4f69febeb9d6659057.png" alt="M_1=(D_1,R_1,T_1)"/> and
+<img class="math" src="../_images/math/f4b92b7286769f8b48d1671ed125ec63f4f68ed3.png" alt="M_2=(D_2,R_2,T_2)"/> the product is the tuple</p>
+<div class="math">
+<p><img src="../_images/math/3d57e332d7c6ecfd6b251fdcfb4efe92d44f65a9.png" alt="\left(D_1+D_2,R_1+R_2,
+  \begin{pmatrix}
+  T_1 &amp; 0 \\
+  0 &amp; T_2
+  \end{pmatrix} \right)."/></p>
+</div></li>
+</ol>
+</div>
+<div class="section" id="dimensional-affine-mappings">
+<h3>3-dimensional affine mappings<a class="headerlink" href="#dimensional-affine-mappings" title="Permalink to this headline">¶</a></h3>
+<p>For an Image, by far the most common mappings associated to it are affine, and
+these are usually maps from a real 3-dimensional domain to a real 3-dimensional
+range. These can be represented by the ubiquitous <img class="math" src="../_images/math/b49e6e1277a83a8e6c40ce8c37373b89b6f6ea27.png" alt="4 \times 4"/> matrix (the
+representation of the affine mapping in homogeneous coordinates), along with
+choices for the axes, i.e. <img class="math" src="../_images/math/01f5b401a7cf89d44cfdc6688b2815d32b3f7356.png" alt="[i,j,k]"/> and the spatial coordinates, i.e.
+<img class="math" src="../_images/math/22751d8289150f74bf17183d775c1a02867d045d.png" alt="[x,y,z]"/>.</p>
+<p>We will revisit some of the operations on mappings  as applied specifically to
+3-dimensional affine mappings which we write as a tuple <img class="math" src="../_images/math/d481756582c72c9d42a29db1db9b125e101c5137.png" alt="A=(D, R, T)"/>
+where <img class="math" src="../_images/math/6d42c88506b8da39a2a23653aecbfb7c29728063.png" alt="T"/> is an invertible <img class="math" src="../_images/math/b49e6e1277a83a8e6c40ce8c37373b89b6f6ea27.png" alt="4 \times 4"/>  transformation matrix with
+real entries.</p>
+<ol class="arabic simple">
+<li><em>Inverse</em>: Because we have assumed that <img class="math" src="../_images/math/6d42c88506b8da39a2a23653aecbfb7c29728063.png" alt="T"/> is invertible this is just  tuple <img class="math" src="../_images/math/455192a6c96fb228efae8945929de71b8d21bcdb.png" alt="(([x,y,z], \mathbb{R}), ([i,j,k], \mathbb{R}), T^{-1})"/>.</li>
+<li><em>Composition</em>: Given two 3-dimensional affine mappings <img class="math" src="../_images/math/a857f0e4fbcea02f7251d8fab53408d27b5e7206.png" alt="M_1=(D_1,R_1,
+T_1), M_2=(D_2,R_2,T_2)"/> the composition of <img class="math" src="../_images/math/b00bf495f8330f1efc7ba93488cc756aa5ec9a97.png" alt="[M_2,M_1]"/> yields another
+3-dimensional affine mapping whenever <img class="math" src="../_images/math/08a19a14c9dea4989c08520b870080fad5f5d6f2.png" alt="R_1 == D_2"/>. That is, it yields
+<img class="math" src="../_images/math/f9a5a46082b2c7e93d2465d0e018cc92830ceb83.png" alt="(D_1, R_2, T_2T_1)"/>.</li>
+<li><em>Reorder domain</em> A reordering of the domain can be represented by a <img class="math" src="../_images/math/a8dcc1ac207867626365e7b87e7d11ccab52db3a.png" alt="4
+\times 4"/> permutation matrix <img class="math" src="../_images/math/f48b617185733d8dd6712643f1ab17c736661a06.png" alt="P"/> (with its last coordinate not
+changing). Hence the reordering of <img class="math" src="../_images/math/81ff745c716480c462096906974bc45345ddfb5f.png" alt="D=([i,j,k], \mathbb{R})"/> to
+<img class="math" src="../_images/math/29784a6446a7f48f11e254c48efcb0fe0c31afda.png" alt="([k,i,j], \mathbb{R})"/> can be represented as <img class="math" src="../_images/math/9f01580f2a1d0710ef5ef3658509150575d610ff.png" alt="(([k,i,j],
+\mathbb{R}), R, TP)"/>.</li>
+<li><em>Reorder range</em>: A reordering of the range can also be represented by a
+<img class="math" src="../_images/math/b49e6e1277a83a8e6c40ce8c37373b89b6f6ea27.png" alt="4 \times 4"/> permutation matrix <img class="math" src="../_images/math/f5b1364c531198199085584c7e25334e9666080c.png" alt="\tilde{P}"/> (with its last
+coordinate not changing). Hence the reordering of <img class="math" src="../_images/math/9d56ad6eb0b154ce1713e3eff6fb1f6304777741.png" alt="R=([x,y,z],
+\mathbb{R})"/> to <img class="math" src="../_images/math/d71b0af66f7497cf0c55cc9dfb25a34d62bee03f.png" alt="([z,x,y], \mathbb{R})"/> can be represented as
+<img class="math" src="../_images/math/f708215bb9e7dc2e07b1950981cae567e460f314.png" alt="(D, ([z,x,y], \mathbb{R}), \tilde{P}, T)"/>.</li>
+<li><em>Linearize</em>: Just as for a general affine mapping, this does nothing.</li>
+<li><em>Product</em>: Because we are dealing with only 3-dimensional mappings here, it
+is impossible to use the product because that would give a mapping between
+spaces of dimension higher than 3.</li>
+</ol>
+</div>
+<div class="section" id="coordinate-maps">
+<h3>Coordinate maps<a class="headerlink" href="#coordinate-maps" title="Permalink to this headline">¶</a></h3>
+<p>As noted above <em>coordinate maps</em> are equivalent to <em>mappings</em> through the
+bijection</p>
+<div class="math">
+<p><img src="../_images/math/57e25f5a3551769c2559d74ad5568d312debca49.png" alt="((u_D, \mathbb{R}), (u_R, \mathbb{R}), \tilde{f}) \leftrightarrow (D, R, I_R^{-1} \circ \tilde{f} \circ I_D)"/></p>
+</div><p>So, any manipulations on <em>mappings</em>, <em>affine mappings</em> or <em>3-dimensional affine
+mappings</em> can be carried out on <em>coordinate maps</em>, <em>affine coordinate maps</em> or
+<em>3-dimensional affine coordinate maps</em>.</p>
+</div>
+</div>
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<p>Going from this mathematical description to code is fairly straightforward.</p>
+<ol class="arabic">
+<li><p class="first">A <em>coordinate system</em> is implemented by the class <em>CoordinateSystem</em> in the
+module <a class="reference internal" href="../api/generated/nipy.core.reference.coordinate_system.html#module-nipy.core.reference.coordinate_system" title="nipy.core.reference.coordinate_system"><code class="xref py py-mod docutils literal"><span class="pre">nipy.core.reference.coordinate_system</span></code></a>. Its constructor takes a
+list of names, naming the basis vectors of the <em>coordinate system</em> and an
+optional built-in numpy scalar dtype such as np.float32.  It has no
+interesting methods of any kind. But there is a module level function
+<em>product</em> which implements the notion of the product of <em>coordinate systems</em>.</p>
+</li>
+<li><p class="first">A <em>coordinate map</em> is implemented by the class <em>CoordinateMap</em> in the module
+<a class="reference internal" href="../api/generated/nipy.core.reference.coordinate_map.html#module-nipy.core.reference.coordinate_map" title="nipy.core.reference.coordinate_map"><code class="xref py py-mod docutils literal"><span class="pre">nipy.core.reference.coordinate_map</span></code></a>. Its constructor takes two
+coordinate has a signature <em>(mapping, input_coords(=domain),
+output_coords(=range))</em> along with an optional argument <em>inverse_mapping</em>
+specifying the inverse of <em>mapping</em>. This is a slightly different order from
+the <img class="math" src="../_images/math/5804634f86c3c2c72aad21b49376c54bd5158588.png" alt="(D, R, f)"/> order of this document. As noted above, the tuple
+<img class="math" src="../_images/math/5804634f86c3c2c72aad21b49376c54bd5158588.png" alt="(D, R, f)"/> has some redundancy because the function <img class="math" src="../_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/> must
+know its domain, and, implicitly its range.  In <code class="xref py py-mod docutils literal"><span class="pre">numpy</span></code>, it is
+impractical to really pass <img class="math" src="../_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/> to the constructor because <img class="math" src="../_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/>
+would expect something of <em>dtype</em> <img class="math" src="../_images/math/9dfa31437b58c0473299320aa638151cd88cf61b.png" alt="D"/> and should return someting of
+<em>dtype</em> <img class="math" src="../_images/math/9d86170e7de539c0ff999de09621ee0c7b6c8ed0.png" alt="R"/>. Therefore, <em>mapping</em> is actually a callable that
+represents the function <img class="math" src="../_images/math/e62b6133b2727a3dea9eff5d7c0d3fb2b0a9f8f6.png" alt="\tilde{f} = I_R \circ f \circ I_D^{-1}"/>. Of
+course, the function <img class="math" src="../_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/> can be recovered as <img class="math" src="../_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/> = I_R^{-1} circ
+tilde{f} I_D`. In code, <img class="math" src="../_images/math/0001d02b63ede2fe3219e05a7cd09c82ae6298b6.png" alt="f"/> is roughly equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nipy.core.api</span> <span class="kn">import</span> <span class="n">CoordinateMap</span><span class="p">,</span> <span class="n">CoordinateSystem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">in_cs</span> <span class="o">=</span> <span class="n">CoordinateSystem</span><span class="p">(</span><span class="s">&#39;ijk&#39;</span><span class="p">,</span> <span class="s">&#39;voxels&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out_cs</span> <span class="o">=</span> <span class="n">CoordinateSystem</span><span class="p">(</span><span class="s">&#39;xyz&#39;</span><span class="p">,</span> <span class="s">&#39;mm&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">map</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coordmap</span> <span class="o">=</span> <span class="n">CoordinateMap</span><span class="p">(</span><span class="n">in_cs</span><span class="p">,</span> <span class="n">out_cs</span><span class="p">,</span> <span class="nb">map</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">domain</span> <span class="o">=</span> <span class="n">coordmap</span><span class="o">.</span><span class="n">function_domain</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span> <span class="o">=</span> <span class="n">coordmap</span><span class="o">.</span><span class="n">function_range</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f_tilde</span> <span class="o">=</span> <span class="n">coordmap</span><span class="o">.</span><span class="n">function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">in_dtype</span> <span class="o">=</span> <span class="n">domain</span><span class="o">.</span><span class="n">coord_dtype</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out_dtype</span> <span class="o">=</span> <span class="nb">range</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">return</span> <span class="n">f_tilde</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">in_dtype</span><span class="p">))</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">out_dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>The class <em>CoordinateMap</em> has an <em>inverse</em> property and there are module level
+functions called <em>product, compose, linearize</em> and it has methods
+<em>reordered_input, reordered_output</em>.</p>
+<p>For more detail on the ideas behind the coordmap design, see
+<span class="xref std std-ref">coordmp-discussion</span></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+  <li><a href="../index.html">NIPY home</a> |&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2005-2013, Neuroimaging in Python team.
+      Last updated on May 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
